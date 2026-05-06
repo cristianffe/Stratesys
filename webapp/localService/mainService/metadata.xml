@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="SAP__aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="SAP__capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="SAP__common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CORE',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Core.V1" Alias="SAP__core"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_HIERARCHY',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Hierarchy.v1" Alias="SAP__hierarchy"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_HTML5',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.HTML5.v1" Alias="SAP__HTML5"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Measures.V1" Alias="SAP__measures"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ODM',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.ODM.v1" Alias="SAP__ODM"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PDF',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.PDF.v1" Alias="SAP__PDF"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_SESSION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Session.v1" Alias="SAP__session"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_SUPPORT',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Support.v1" Alias="SAP__support"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="SAP__UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='LOCAL')/$value">
+        <edmx:Include Namespace="Org.OData.Validation.V1" Alias="SAP__validation"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="com.sap.gateway.srvd.zsrv_proyectos.v0001" Alias="SAP__self">
+            <Annotation Term="SAP__core.SchemaVersion" String="1.0.0"/>
+            <EntityType Name="QueryProyType">
+                <Key>
+                    <PropertyRef Name="ProjectID"/>
+                </Key>
+                <Property Name="ProjectID" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="ProjectName" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="ProjectStage" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="StageDesc" Type="Edm.String" Nullable="false" MaxLength="60"/>
+                <Property Name="Customer" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="CustomerName" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="StartDate" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="EndDate" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="ChangedOn" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="ProjManagerId" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="ProjManagerName" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="ProjAccountantId" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="ProjAccountantName" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="ProjControllerId" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="ProjControllerName" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="ProjPartnerId" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="ProjPartnerName" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="ProfitCenter" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="ProfitCenterName" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="CostCenter" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="CostCenterName" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="ProjectCategory" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="OrgID" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="OrgDesc" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5"/>
+                <Property Name="Currencyname" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="Confidential" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="UseProjectBilling" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="RestrictTimePosting" Type="Edm.String" Nullable="false" MaxLength="1"/>
+                <Property Name="ChangedBy" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="YY1_Fechadeventa_Cpr" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="YY1_Fechadeventa_CprF" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="YY1_Geografia_Cpr" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="YY1_Geografia_CprF" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="YY1_Geografia_CprT" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="YY1_Producto_Cpr" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="YY1_Producto_CprF" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="YY1_Producto_CprT" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="YY1_Tipodeproyecto_Cpr" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="YY1_Tipodeproyecto_CprF" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="YY1_Tipodeproyecto_CprT" Type="Edm.String" Nullable="false" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="QueryPackageType">
+                <Key>
+                    <PropertyRef Name="ProjectID"/>
+                    <PropertyRef Name="WorkPackageID"/>
+                </Key>
+                <Property Name="ProjectID" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="WorkPackageID" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="WorkPackageName" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="ProjectName" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="WorkPackageType" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="WorkPackageUnitText" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="UnitOfMeasure" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="Quantity" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="ChangedBy" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="ChangedOn" Type="Edm.String" Nullable="false" MaxLength="50"/>
+                <Property Name="WPStartDate" Type="Edm.String" Nullable="false" MaxLength="50"/>
+                <Property Name="WPEndDate" Type="Edm.String" Nullable="false" MaxLength="50"/>
+                <Property Name="YY1_TipodeproyectoSub_cpd" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="YY1_TipodeproyectoSub_cpdF" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="YY1_TipodeproyectoSub_cpdT" Type="Edm.String" Nullable="false" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="QueryRolesType">
+                <Key>
+                    <PropertyRef Name="ProjectID"/>
+                    <PropertyRef Name="ProjectRoleID"/>
+                </Key>
+                <Property Name="ProjectID" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="ProjectRoleID" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="ProjectRoleName" Type="Edm.String" Nullable="false" MaxLength="100"/>
+                <Property Name="BusinessPartnerID" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="BusinessPartnerName" Type="Edm.String" Nullable="false" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="ProyectosType">
+                <Key>
+                    <PropertyRef Name="ProjectUUID"/>
+                </Key>
+                <Property Name="ProjectUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="ProjectInternalID" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="Project" Type="Edm.String" Nullable="false" MaxLength="24"/>
+                <Property Name="ProjectDescription" Type="Edm.String" Nullable="false" MaxLength="60"/>
+                <Property Name="ProcessingStatus" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="PlannedStartDate" Type="Edm.Date"/>
+                <Property Name="PlannedEndDate" Type="Edm.Date"/>
+                <Property Name="ActualStartDate" Type="Edm.Date"/>
+                <Property Name="ActualFinishDate" Type="Edm.Date"/>
+                <Property Name="PriorityCode" Type="Edm.String" Nullable="false" MaxLength="3"/>
+                <Property Name="ProjectStartDate" Type="Edm.Date"/>
+                <Property Name="ProjectEndDate" Type="Edm.Date"/>
+                <Property Name="WBSElementInternalID" Type="Edm.String" Nullable="false" MaxLength="8"/>
+                <Property Name="ProjectProfileCode" Type="Edm.String" Nullable="false" MaxLength="7"/>
+                <Property Name="ProfitCenter" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="ControllingArea" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="FunctionalArea" Type="Edm.String" Nullable="false" MaxLength="16"/>
+                <Property Name="Location" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5"/>
+                <Property Name="AvailabilityControlProfile" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="AvailabilityControlIsActive" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="InvestmentProfile" Type="Edm.String" Nullable="false" MaxLength="6"/>
+                <Property Name="TaxJurisdiction" Type="Edm.String" Nullable="false" MaxLength="15"/>
+                <Property Name="CreatedByUser" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="ProjectLastChangedByUser" Type="Edm.String" Nullable="false" MaxLength="12"/>
+                <Property Name="ProjectLastChangedDateTime" Type="Edm.DateTimeOffset"/>
+                <Property Name="ProjectPeriod" Type="Edm.String" Nullable="false" MaxLength="23"/>
+            </EntityType>
+            <EntityContainer Name="Container">
+                <EntitySet Name="Proyectos" EntityType="com.sap.gateway.srvd.zsrv_proyectos.v0001.ProyectosType"/>
+                <EntitySet Name="QueryPackage" EntityType="com.sap.gateway.srvd.zsrv_proyectos.v0001.QueryPackageType"/>
+                <EntitySet Name="QueryProy" EntityType="com.sap.gateway.srvd.zsrv_proyectos.v0001.QueryProyType"/>
+                <EntitySet Name="QueryRoles" EntityType="com.sap.gateway.srvd.zsrv_proyectos.v0001.QueryRolesType"/>
+            </EntityContainer>
+            <Annotations Target="SAP__self.QueryProyType/ProjectID">
+                <Annotation Term="SAP__common.Label" String="ID de Proyecto"/>
+            </Annotations>
+            <Annotations Target="SAP__self.QueryProyType/ProjectName">
+                <Annotation Term="SAP__common.Label" String="Nombre del Proyecto"/>
+            </Annotations>
+            <Annotations Target="SAP__self.QueryProyType/ProjectStage">
+                <Annotation Term="SAP__common.Label" String="Etapa (ID)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.QueryProyType/StageDesc">
+                <Annotation Term="SAP__common.Label" String="Descripción del Estado"/>
+            </Annotations>
+            <Annotations Target="SAP__self.QueryProyType/Customer">
+                <Annotation Term="SAP__common.Label" String="ID Cliente"/>
+            </Annotations>
+            <Annotations Target="SAP__self.QueryProyType/CustomerName">
+                <Annotation Term="SAP__common.Label" String="Nombre Cliente"/>
+            </Annotations>
+            <Annotations Target="SAP__self.QueryProyType/Currency">
+                <Annotation Term="SAP__common.IsCurrency"/>
+            </Annotations>
+            <Annotations Target="SAP__self.QueryProyType">
+                <Annotation Term="SAP__common.Label" String="Consulta de Proyectos vía API - Full Parity"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/QueryProy">
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.Container">
+                <Annotation Term="SAP__CodeList.CurrencyCodes">
+                    <Record>
+                        <PropertyValue Property="Url" String="../../../../default/iwbep/common/0001/$metadata"/>
+                        <PropertyValue Property="CollectionPath" String="Currencies"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+                <Annotation Term="SAP__capabilities.FilterFunctions">
+                    <Collection>
+                        <String>eq</String>
+                        <String>ne</String>
+                        <String>gt</String>
+                        <String>ge</String>
+                        <String>lt</String>
+                        <String>le</String>
+                        <String>and</String>
+                        <String>or</String>
+                        <String>contains</String>
+                        <String>startswith</String>
+                        <String>endswith</String>
+                        <String>any</String>
+                        <String>all</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__support.TechnicalInfoLinks">
+                    <Record>
+                        <PropertyValue Property="Url" String="../../../../default/iwbep/common/0001/$metadata"/>
+                        <PropertyValue Property="FunctionImport" String="GetTechnicalInfoLinks"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.SupportedFormats">
+                    <Collection>
+                        <String>application/json</String>
+                        <String>application/pdf</String>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="SAP__PDF.Features">
+                    <Record>
+                        <PropertyValue Property="DocumentDescriptionReference" String="../../../../default/iwbep/common/0001/$metadata"/>
+                        <PropertyValue Property="DocumentDescriptionCollection" String="MyDocumentDescriptions"/>
+                        <PropertyValue Property="ArchiveFormat" Bool="true"/>
+                        <PropertyValue Property="Border" Bool="true"/>
+                        <PropertyValue Property="CoverPage" Bool="true"/>
+                        <PropertyValue Property="FitToPage" Bool="true"/>
+                        <PropertyValue Property="FontName" Bool="true"/>
+                        <PropertyValue Property="FontSize" Bool="true"/>
+                        <PropertyValue Property="HeaderFooter" Bool="true"/>
+                        <PropertyValue Property="IANATimezoneFormat" Bool="true"/>
+                        <PropertyValue Property="Margin" Bool="true"/>
+                        <PropertyValue Property="Padding" Bool="true"/>
+                        <PropertyValue Property="ResultSizeDefault" Int="20000"/>
+                        <PropertyValue Property="ResultSizeMaximum" Int="20000"/>
+                        <PropertyValue Property="Signature" Bool="true"/>
+                        <PropertyValue Property="TextDirectionLayout" Bool="true"/>
+                        <PropertyValue Property="Treeview" Bool="true"/>
+                        <PropertyValue Property="UploadToFileShare" Bool="true"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.KeyAsSegmentSupported"/>
+                <Annotation Term="SAP__capabilities.AsynchronousRequestsSupported"/>
+            </Annotations>
+            <Annotations Target="SAP__self.QueryPackageType">
+                <Annotation Term="SAP__common.Label" String="Consulta de Paquetes de Trabajo vía API"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/QueryPackage">
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.QueryRolesType">
+                <Annotation Term="SAP__common.Label" String="Consulta de Roles de Trabajo vía API"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/QueryRoles">
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/ProjectInternalID">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Def.proyecto"/>
+                <Annotation Term="SAP__common.Heading" String="Definición del proyecto"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Proyecto (interno)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/Project">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="ID de proyecto"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/ProcessingStatus">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Estado de ejecución"/>
+                <Annotation Term="SAP__common.Heading" String="Estado"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Estado de procesamiento de objeto"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/PriorityCode">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="Prioridad"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/WBSElementInternalID">
+                <Annotation Term="SAP__common.IsDigitSequence"/>
+                <Annotation Term="SAP__common.Label" String="ID interno de PEP"/>
+                <Annotation Term="SAP__common.Heading" String="Elem.PEP"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Elemento PEP"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=PS_S4_PSPNR"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/ProjectProfileCode">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Perfil de proyecto"/>
+                <Annotation Term="SAP__common.Heading" String="PerfPry"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=PROFIDPROJ"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/ProfitCenter">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Centro de beneficio"/>
+                <Annotation Term="SAP__common.Heading" String="CeBe"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=PRCTR"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/CompanyCode">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Sociedad"/>
+                <Annotation Term="SAP__common.Heading" String="Soc."/>
+                <Annotation Term="SAP__common.QuickInfo" String="Sociedad del proyecto"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=PS_VBUKR"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/ControllingArea">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Sociedad CO"/>
+                <Annotation Term="SAP__common.Heading" String="SoCO"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Sociedad CO del proyecto"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=PS_VKOKR"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/FunctionalArea">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Área funcional"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=FKBER"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/Location">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Ubicación"/>
+                <Annotation Term="SAP__common.Heading" String="Ubic."/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=PS_STORT"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/Plant">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Centro"/>
+                <Annotation Term="SAP__common.Heading" String="Ce."/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=WERKS_D"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/Currency">
+                <Annotation Term="SAP__common.IsCurrency"/>
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Moneda del proyecto"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/AvailabilityControlProfile">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Perfil control disp."/>
+                <Annotation Term="SAP__common.Heading" String="Perfil"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Control de disponibilidad de presupuesto: Perfil"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=FCO_AVC_PROFILE"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/InvestmentProfile">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Perfil de inversión"/>
+                <Annotation Term="SAP__common.Heading" String="Perfil inv"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Perfil de medidas de inversión"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=IM_PROFIL"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/TaxJurisdiction">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Domicilio fiscal"/>
+                <Annotation Term="SAP__common.Heading" String="Domicil.fiscal"/>
+                <Annotation Term="SAP__common.DocumentationRef" String="urn:sap-com:documentation:key?=type=DE&amp;id=TXJCD"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/LastChangedByUser">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Modificado por"/>
+                <Annotation Term="SAP__common.Heading" String="Modif.por"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Nombre de la persona que ha modificado el objeto"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/ProjectLastChangedByUser">
+                <Annotation Term="SAP__common.IsUpperCase"/>
+                <Annotation Term="SAP__common.Label" String="Modificado por"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Usuario que ha modificado datos en proyecto por última vez"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType">
+                <Annotation Term="SAP__common.Label" String="Proyectos para App Fiori"/>
+            </Annotations>
+            <Annotations Target="SAP__self.Container/Proyectos">
+                <Annotation Term="SAP__capabilities.SearchRestrictions">
+                    <Record>
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.InsertRestrictions">
+                    <Record>
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.DeleteRestrictions">
+                    <Record>
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="SAP__capabilities.UpdateRestrictions">
+                    <Record>
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                        <PropertyValue Property="QueryOptions">
+                            <Record>
+                                <PropertyValue Property="SelectSupported" Bool="true"/>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/ProjectUUID">
+                <Annotation Term="SAP__common.Label" String="GUID de entidad"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/ProjectDescription">
+                <Annotation Term="SAP__common.Label" String="Nombre"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Descripción"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/PlannedStartDate">
+                <Annotation Term="SAP__common.Label" String="Inicio pl.m.tempr."/>
+                <Annotation Term="SAP__common.Heading" String="Inicio planificado más temprano"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Inicio planificado más temprano"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/PlannedEndDate">
+                <Annotation Term="SAP__common.Label" String="Fin plan.m.tempr."/>
+                <Annotation Term="SAP__common.Heading" String="Fin planificado más temprano"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Fin planificado más temprano"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/ActualStartDate">
+                <Annotation Term="SAP__common.Label" String="Inicio real"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/ActualFinishDate">
+                <Annotation Term="SAP__common.Label" String="Fin real"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/ProjectStartDate">
+                <Annotation Term="SAP__common.Label" String="Inicio planificado"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/ProjectEndDate">
+                <Annotation Term="SAP__common.Label" String="Fin planificado"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/AvailabilityControlIsActive">
+                <Annotation Term="SAP__common.Label" String="El CD está activo"/>
+                <Annotation Term="SAP__common.Heading" String="Control de disponibilidad activo"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Indic.control disponibilidad (CDD)"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/CreatedByUser">
+                <Annotation Term="SAP__common.Label" String="Creado por"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Nombre de la persona que ha creado el objeto"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/CreationDateTime">
+                <Annotation Term="SAP__common.Label" String="Fecha creación"/>
+                <Annotation Term="SAP__common.Heading" String="Fecha de creación"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Cronomarcador de creación de objeto"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/LastChangeDateTime">
+                <Annotation Term="SAP__common.Label" String="Modificado el"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Cronomarcador de última modificación de objeto"/>
+            </Annotations>
+            <Annotations Target="SAP__self.ProyectosType/ProjectLastChangedDateTime">
+                <Annotation Term="SAP__common.Label" String="Fecha modificación"/>
+                <Annotation Term="SAP__common.QuickInfo" String="Cronomarcador en el que los datos de proyecto se han mod.úl."/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
