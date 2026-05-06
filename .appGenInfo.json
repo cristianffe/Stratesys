@@ -1,0 +1,24 @@
+{
+  "generationParameters": {
+    "generationDate": "Tue May 05 2026 01:34:02 GMT+0000 (Coordinated Universal Time)",
+    "generatorPlatform": "SAP Business Application Studio",
+    "serviceType": "SAP System (ABAP On-Premise)",
+    "metadataFilename": "",
+    "serviceUrl": "https://my408485.s4hana.cloud.sap/sap/opu/odata4/sap/zsrv_proyectos/srvd/sap/zsrv_proyectos/0001/",
+    "appName": "zps_crear_proyectos",
+    "appTitle": "Crear Proyectos",
+    "appDescription": "An SAP Fiori application.",
+    "appNamespace": "com.co.stratesys",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.142.12",
+    "enableEslint": true,
+    "enableTypeScript": false,
+    "showMockDataInfo": true,
+    "generatorVersion": "1.23.0",
+    "template": "Basic V4",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [],
+    "launchText": "To launch the generated application, run the following from the generated application root folder:\n\n```\n    npm start\n```",
+    "valueHelpDownloaded": true
+  }
+}
