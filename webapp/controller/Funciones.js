@@ -406,7 +406,7 @@ sap.ui.define([
                         if (rpta.numericSeverity === 4) {
                             MessageBox.error(rpta.mensaje);
                         } else {
-                            MessageBox.success(rpta.mensaje || `Proyecto ${rpta.id} creado exitosamente`);
+                            MessageBox.success(`Proyecto ${payloadHeader.ProjectID} creado exitosamente`);
                         }
 
                     } catch (oError) {
