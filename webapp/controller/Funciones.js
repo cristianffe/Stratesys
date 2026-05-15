@@ -844,7 +844,7 @@ sap.ui.define([
                         press: function () {
                             //oDialog.close();
                             sap.m.URLHelper.redirect(
-                                "/sap/bc/ui2/flp#EngagementProject-display&/ProjectSet('" + project + "')",
+                                "sap/bc/ui2/flp#CustomerProject-maintainCustomerProject&/Display/ProjEngagementsSet/" + project ,
                                 true
                             );
                         }
@@ -856,7 +856,7 @@ sap.ui.define([
                         press: function () {
                             //oDialog.close();
                             sap.m.URLHelper.redirect(
-                                "/sap/bc/ui2/flp#SalesOrder-display&/SalesOrderSet('" + salesOrder + "')",
+                                "/sap/bc/ui2/flp#SalesOrder-manage&/SalesOrder('" + salesOrder + "')",
                                 true
                             );
                         }
