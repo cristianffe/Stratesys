@@ -838,7 +838,7 @@ sap.ui.define([
                 }),
                 buttons: [
                     new sap.m.Button({
-                        text: "Ver Proyecto",
+                        text: "Visualizar Proyecto",
                         type: "Emphasized",
                         icon: "sap-icon://project-definition-triangle",
                         press: function () {
@@ -850,13 +850,13 @@ sap.ui.define([
                         }
                     }),
                     new sap.m.Button({
-                        text: "Ver Pedido",
+                        text: "Visualizar Pedido",
                         type: "Default",
                         icon: "sap-icon://sales-order",
                         press: function () {
                             //oDialog.close();
                             sap.m.URLHelper.redirect(
-                                "/sap/bc/ui2/flp#SalesOrder-manage&/SalesOrder('" + salesOrder + "')",
+                                "/sap/bc/ui2/flp#SalesOrder-displayFactSheet?SalesOrder=" + salesOrder,
                                 true
                             );
                         }
