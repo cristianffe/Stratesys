@@ -16,11 +16,18 @@ sap.ui.define([
             // call the base component's init function
             UIComponent.prototype.init.apply(this, arguments);
 
+            // Modelo para guardar ProjectID
+            var oProjectIDModel = new sap.ui.model.json.JSONModel({
+                ProjectID: ""
+            });
+            
             // set the device model
             this.setModel(models.createDeviceModel(), "device");
 
             // enable routing
             this.getRouter().initialize();
+
+            this.setModel(oProjectIDModel, "AppModel");
         }
     });
 });

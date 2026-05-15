@@ -16,7 +16,6 @@
 		<m:masterPages>
 			<m:Page id="masterPage" title="Proyecto" showNavButton="false">
 
-				<!-- ── SUBHEADER: buscador rápido + botón filtros ── -->
 				<m:subHeader>
 					<m:Bar>
 						<m:contentMiddle>
@@ -33,133 +32,90 @@
 				<m:content>
 					<m:VBox id="masterFieldsBox" class="sapUiSmallMargin">
 
-						<!-- 1. ProjectName -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="ProjectName" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>ProjectName}"/>
 						</m:HBox>
-
-						<!-- 2. ProjectStage -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="ProjectStage" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>ProjectStage}"/>
 						</m:HBox>
-
-						<!-- 3. OrgID -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="OrgID" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>OrgID}"/>
 						</m:HBox>
-
-						<!-- 4. ProjectCategory -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="ProjectCategory" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>ProjectCategory}"/>
 						</m:HBox>
-
-						<!-- 5. Currency -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="Currency" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>Currency}"/>
 						</m:HBox>
-
-						<!-- 6. StartDate -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="StartDate" width="180px" design="Bold"/>
-							<m:Text text="{path: 'ProjectSet>StartDate', type: 'sap.ui.model.type.Date', formatOptions: {style: 'medium'}}"/>
+							<m:Text text="{path: 'ProjectSet>StartDate'}"/>
 						</m:HBox>
-
-						<!-- 7. EndDate -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="EndDate" width="180px" design="Bold"/>
-							<m:Text text="{path: 'ProjectSet>EndDate', type: 'sap.ui.model.type.Date', formatOptions: {style: 'medium'}}"/>
+							<m:Text text="{path: 'ProjectSet>EndDate'}"/>
 						</m:HBox>
-
-						<!-- 8. ProjManagerExtId -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="ProjManagerExtId" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>ProjManagerExtId}"/>
 						</m:HBox>
-
-						<!-- 9. Customer -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="Customer" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>Customer}"/>
 						</m:HBox>
-
-						<!-- 10. CostCenter -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="CostCenter" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>CostCenter}"/>
 						</m:HBox>
-
-						<!-- 11. ProfitCenter -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="ProfitCenter" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>ProfitCenter}"/>
 						</m:HBox>
-
-						<!-- 12. ProjAccountantExtId -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="ProjAccountantExtId" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>ProjAccountantExtId}"/>
 						</m:HBox>
-
-						<!-- 13. ProjControllerExtId -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="ProjControllerExtId" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>ProjControllerExtId}"/>
 						</m:HBox>
-
-						<!-- 14. ProjPartnerExtId -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="ProjPartnerExtId" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>ProjPartnerExtId}"/>
 						</m:HBox>
-
-						<!-- 15. ProjectDesc -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="ProjectDesc" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>ProjectDesc}"/>
 						</m:HBox>
-
-						<!-- 16. Confidential -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="Confidential" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>Confidential}"/>
 						</m:HBox>
-
-						<!-- 17. UseProjectBilling -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="UseProjectBilling" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>UseProjectBilling}"/>
 						</m:HBox>
-
-						<!-- 18. RestrictTimePosting -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="RestrictTimePosting" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>RestrictTimePosting}"/>
 						</m:HBox>
-
-						<!-- 19. YY1_ACTIVE_Cpr -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="YY1_ACTIVE_Cpr" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>YY1_ACTIVE_Cpr}"/>
 						</m:HBox>
-
-						<!-- 20. YY1_Geografia_Cpr -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="YY1_Geografia_Cpr" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>YY1_Geografia_Cpr}"/>
 						</m:HBox>
-
-						<!-- 21. YY1_Producto_Cpr -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="YY1_Producto_Cpr" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>YY1_Producto_Cpr}"/>
 						</m:HBox>
-
-						<!-- 22. YY1_Tipodeproyecto_Cpr -->
 						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
 							<m:Label text="YY1_Tipodeproyecto_Cpr" width="180px" design="Bold"/>
 							<m:Text text="{ProjectSet>YY1_Tipodeproyecto_Cpr}"/>
@@ -179,9 +135,13 @@
 				<!-- ── HEADER ── -->
 				<m:customHeader>
 					<m:Bar>
-						<m:contentMiddle>
-							<m:Title text="{ProjectSet>ProjectName}" style="color:#0854A0;"/>
-						</m:contentMiddle>
+						<m:contentLeft>
+							<!-- Título estilo SAP grande y azul sin CSS externo -->
+							<m:Title
+								text="{= ${ProjectSet>ProjectName} + ' (' + ${AppModel>/ProjectID} + ')'}"
+								titleStyle="H3"
+								class="sapThemeHighlight-asColor"/>
+						</m:contentLeft>
 						<m:contentRight>
 							<m:Button text="Cargar Archivo" type="Emphasized" icon="sap-icon://upload" press=".onUploadFile"/>
 							<m:Button text="Crear" type="Emphasized" icon="sap-icon://create-form" press=".onCreate"/>
@@ -191,7 +151,6 @@
 
 				<m:content>
 
-					<!-- ── ICON TAB BAR ── -->
 					<m:IconTabBar id="mainTabBar" stretchContentHeight="true" class="sapUiResponsiveContentPadding">
 
 						<m:items>
@@ -219,15 +178,15 @@
 													<ui:template><m:Text text="{WBSSet>Description}" wrapping="false"/></ui:template>
 												</ui:Column>
 												<ui:Column width="110px" resizable="true" autoResizable="true">
-													<m:Label text="WPStartDate"/>
+													<m:Label text="StartDate"/>
 													<ui:template>
-														<m:Text text="{path: 'WBSSet>WPStartDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy'}}" wrapping="false"/>
+														<m:Text text="{path: 'WBSSet>StartDate'}"/>
 													</ui:template>
 												</ui:Column>
 												<ui:Column width="110px" resizable="true" autoResizable="true">
 													<m:Label text="WPEndDate"/>
 													<ui:template>
-														<m:Text text="{path: 'WBSSet>WPEndDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy'}}" wrapping="false"/>
+														<m:Text text="{path: 'WBSSet>EndDate'}"/>
 													</ui:template>
 												</ui:Column>
 												<ui:Column width="150px" resizable="true" autoResizable="true">
@@ -264,6 +223,10 @@
 											selectionMode="None"
 											columnHeaderHeight="32">
 											<ui:columns>
+												<ui:Column width="80px" resizable="true" autoResizable="true">
+													<m:Label text="WorkPackage"/>
+													<ui:template><m:Text text="{ResourceSet>WorkPackage}" wrapping="false"/></ui:template>
+												</ui:Column>
 												<ui:Column width="80px" resizable="true" autoResizable="true">
 													<m:Label text="Version"/>
 													<ui:template><m:Text text="{ResourceSet>Version}" wrapping="false"/></ui:template>
@@ -374,13 +337,13 @@
 												<ui:Column width="210px" resizable="true" autoResizable="true">
 													<m:Label text="BillingPlanServiceStartDate"/>
 													<ui:template>
-														<m:Text text="{path: 'BillingSet>BillingPlanServiceStartDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy'}}" wrapping="false"/>
+														<m:Text text="{path: 'BillingSet>BillingPlanServiceStartDate'}"/>
 													</ui:template>
 												</ui:Column>
 												<ui:Column width="200px" resizable="true" autoResizable="true">
 													<m:Label text="BillingPlanServiceEndDate"/>
 													<ui:template>
-														<m:Text text="{path: 'BillingSet>BillingPlanServiceEndDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy'}}" wrapping="false"/>
+														<m:Text text="{path: 'BillingSet>BillingPlanServiceEndDate'}"/>
 													</ui:template>
 												</ui:Column>
 											</ui:columns>
@@ -400,7 +363,7 @@
 
 
 	<!-- ═══════════════════════════════════════════════════════════════ -->
-	<!--   FILTER DIALOG — Filtros avanzados para el master            -->
+	<!--   FILTER DIALOG                                                -->
 	<!-- ═══════════════════════════════════════════════════════════════ -->
 	<m:Dialog
 		id="filterDialog"
@@ -414,7 +377,6 @@
 		<m:content>
 			<m:VBox class="sapUiSmallMargin sapUiSmallMarginEnd">
 
-				<!-- ── Sección: Identificación ── -->
 				<m:Title text="Identificación" level="H5" class="sapUiTinyMarginBottom"/>
 				<m:HBox class="sapUiTinyMarginBottom">
 					<m:VBox width="50%" class="sapUiTinyMarginEnd">
@@ -451,7 +413,6 @@
 
 				<m:ToolbarSeparator class="sapUiSmallMarginTopBottom"/>
 
-				<!-- ── Sección: Fechas ── -->
 				<m:Title text="Fechas" level="H5" class="sapUiTinyMarginBottom"/>
 				<m:HBox class="sapUiTinyMarginBottom">
 					<m:VBox width="50%" class="sapUiTinyMarginEnd">
@@ -477,7 +438,6 @@
 
 				<m:ToolbarSeparator class="sapUiSmallMarginTopBottom"/>
 
-				<!-- ── Sección: Responsables ── -->
 				<m:Title text="Responsables" level="H5" class="sapUiTinyMarginBottom"/>
 				<m:HBox class="sapUiTinyMarginBottom">
 					<m:VBox width="50%" class="sapUiTinyMarginEnd">
@@ -503,7 +463,6 @@
 
 				<m:ToolbarSeparator class="sapUiSmallMarginTopBottom"/>
 
-				<!-- ── Sección: Organización ── -->
 				<m:Title text="Organización" level="H5" class="sapUiTinyMarginBottom"/>
 				<m:HBox class="sapUiTinyMarginBottom">
 					<m:VBox width="50%" class="sapUiTinyMarginEnd">
@@ -535,7 +494,6 @@
 
 				<m:ToolbarSeparator class="sapUiSmallMarginTopBottom"/>
 
-				<!-- ── Sección: Clasificación YY1 ── -->
 				<m:Title text="Clasificación" level="H5" class="sapUiTinyMarginBottom"/>
 				<m:HBox class="sapUiTinyMarginBottom">
 					<m:VBox width="50%" class="sapUiTinyMarginEnd">
@@ -553,14 +511,11 @@
 						<m:Label text="YY1_Tipodeproyecto_Cpr" design="Bold"/>
 						<m:Input id="fTipoproyecto" placeholder="" width="100%"/>
 					</m:VBox>
-					<m:VBox width="50%">
-						<!-- espacio reservado para campo futuro -->
-					</m:VBox>
+					<m:VBox width="50%"/>
 				</m:HBox>
 
 				<m:ToolbarSeparator class="sapUiSmallMarginTopBottom"/>
 
-				<!-- ── Sección: Flags ── -->
 				<m:Title text="Opciones" level="H5" class="sapUiTinyMarginBottom"/>
 				<m:HBox class="sapUiTinyMarginBottom">
 					<m:VBox width="50%" class="sapUiTinyMarginEnd">
@@ -602,26 +557,14 @@
 			</m:VBox>
 		</m:content>
 
-		<!-- ── Footer con acciones ── -->
 		<m:beginButton>
-			<m:Button
-				text="Aplicar filtros"
-				type="Emphasized"
-				icon="sap-icon://filter"
-				press=".onApplyFilter"/>
+			<m:Button text="Aplicar filtros" type="Emphasized" icon="sap-icon://filter" press=".onApplyFilter"/>
 		</m:beginButton>
 		<m:endButton>
-			<m:Button
-				text="Limpiar"
-				type="Transparent"
-				icon="sap-icon://clear-filter"
-				press=".onClearFilter"/>
+			<m:Button text="Limpiar" type="Transparent" icon="sap-icon://clear-filter" press=".onClearFilter"/>
 		</m:endButton>
 		<m:buttons>
-			<m:Button
-				text="Cerrar"
-				type="Default"
-				press=".onCloseFilterDialog"/>
+			<m:Button text="Cerrar" type="Default" press=".onCloseFilterDialog"/>
 		</m:buttons>
 
 	</m:Dialog>

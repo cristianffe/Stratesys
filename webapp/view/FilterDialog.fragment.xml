@@ -2,13 +2,17 @@
 <Dialog id="dlgCargaArchivo" title="Cargar archivo Excel" draggable="true" resizable="true" contentWidth="400px">
 <content>
 <l:VerticalLayout class="sapUiSmallMargin">
-<u:FileUploader id="fileUploader" fileType="xlsx" change="onFileChange" placeholder="Selecciona un archivo Excel (.xlsx)" style="Emphasized"/>
+<u:FileUploader id="fileUploader" fileType="xlsm" change="onFileChange" placeholder="Selecciona un archivo Excel (.xlsx)" style="Emphasized"/>
 </l:VerticalLayout>
 </content>
 <beginButton>
 <Button text="Procesar archivo" press="onProcesarExcel"/>
 </beginButton>
 <endButton>
+<Input id="inputPassword" 
+       type="Password" 
+       placeholder="Contraseña del archivo" 
+       width="100%"/>
 <Button text="Cerrar" press="closeDialog"/>
 </endButton>
 </Dialog>

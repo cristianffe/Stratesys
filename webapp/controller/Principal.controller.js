@@ -4,12 +4,11 @@ sap.ui.define([
     "use strict";
 
     return Funciones.extend("com.co.stratesys.zpscrearproyectos.controller.Principal", {
-        onInit() {
-
+        async onInit() {            
             this.onOpenDialog();
         },
 
-        
+
 
     });
 });
