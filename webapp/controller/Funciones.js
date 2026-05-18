@@ -67,10 +67,13 @@ sap.ui.define([
             })[0];
             if (oFileUploader) { oFileUploader.clear(); }
 
+            this.getOwnerComponent().getModel("AppModel").setProperty("/OrgId", "");
+            this.getOwnerComponent().getModel("AppModel").setProperty("/CostCenter", "");
+            this.getOwnerComponent().getModel("AppModel").setProperty("/Company", "");
+
             sap.ui.core.BusyIndicator.show(0);
             debugger;
             await this.obtenerProjectID();
-
             // this.getView().getModel("AppModel").refresh(true);
 
             var oReader = new FileReader();
@@ -256,6 +259,8 @@ sap.ui.define([
                     });
                     */
 
+
+
                     // ── 6. Setear modelos ─────────────────────────────────
                     var oView = this.getView();
                     oView.setModel(new sap.ui.model.json.JSONModel(oProjectData), "ProjectSet");
@@ -265,6 +270,9 @@ sap.ui.define([
 
                     oView.byId("masterPage").bindElement("ProjectSet>/");
                     oView.byId("detailPage").bindElement("ProjectSet>/");
+
+                    var filter = "?$filter=NombreEmpresaFactura eq '" + oProjectData.OrgID + "' and ServiceOrgDefaultCostCenter eq '" + oProjectData.CostCenter + "'";
+                    await this.obtenerDatosSociedad(filter);
 
 
 
@@ -497,7 +505,7 @@ sap.ui.define([
 
                             }
 
-                            this.visualizarLog(aMessages,payloadHeader.ProjectID,rpta.mensaje);
+                            this.visualizarLog(aMessages, payloadHeader.ProjectID, rpta.mensaje);
 
 
                             //MessageBox.success(`Proyecto ${payloadHeader.ProjectID} creado exitosamente`);
@@ -516,17 +524,19 @@ sap.ui.define([
 
         setHeaderProyecto: function (oData, projectId) {
 
+            var oProjectModel = this.getView().getModel("ProjectSet");
+
             var oPayload = {
                 ProjectID: projectId,
                 Confidential: oData.Confidential || "N",
                 //CostCenter: oData.CostCenter || "",
-                CostCenter: "ES01CORP",
+                CostCenter: this.getOwnerComponent().getModel("AppModel").getProperty("/CostCenter"),
                 Currency: oData.Currency.split("-")[0].trim(),
-                Customer: "1002007",
+                Customer:  oProjectModel.getProperty("/Customer").trim(),
                 // Customer: oData.Customer || ""
                 EndDate: oData.EndDate ? oData.EndDate + "T00:00:00" : null,
                 //OrgID: oData.OrgID || "",
-                OrgID: "STCOR",
+                OrgID: this.getOwnerComponent().getModel("AppModel").getProperty("/OrgId"),
                 ProfitCenter: oData.ProfitCenter.split("(")[0].trim(),
                 ProjAccountantCompCode: oData.ProjAccountantCompCode || "",
                 ProjAccountantExtId: oData.ProjAccountantExtId || "",
@@ -764,6 +774,67 @@ sap.ui.define([
 
         },
 
+        obtenerOdata: async function (url) {
+            // Para que sea "síncrono", lo metemos en una función async con await
+            try {
+                var response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                debugger;
+
+                var data = await response.json();
+                return data.value;
+                //console.log("Resultado del GET:", data[0].value);
+                debugger;
+            } catch (error) {
+                // console.error("Fallo en la petición:", error);
+            }
+
+        },
+
+
+        obtenerDatosSociedad: async function (filter) {
+
+            var url = "/sap/opu/odata4/sap/zsrv_project_entry/srvd/sap/zsrv_project_entry/0001/DataHpp" + filter;
+
+            // Para que sea "síncrono", lo metemos en una función async con await
+            try {
+                var response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+
+                debugger;
+
+                var data = await response.json();
+
+                var empresa = data.value.find(i => i.campo === "EMPRESA")?.valores;
+                var orgId = data.value.find(i => i.campo === "SOCIEDAD")?.valores;
+                var ceco = data.value.find(i => i.campo === "CECO")?.valores;
+
+                this.getOwnerComponent().getModel("AppModel").setProperty("/OrgId", orgId);
+                this.getOwnerComponent().getModel("AppModel").setProperty("/CostCenter", ceco);
+                this.getOwnerComponent().getModel("AppModel").setProperty("/Company", empresa);
+                //console.log("Resultado del GET:", data[0].value);
+                debugger;
+            } catch (error) {
+                // console.error("Fallo en la petición:", error);
+            }
+
+            debugger;
+
+
+            // return sProjectID;
+
+        },
+
         planFacturacion: function (billing, projectId) {
 
             var oItemBilling = billing[0];
@@ -800,7 +871,7 @@ sap.ui.define([
 
         },
 
-        visualizarLog: function (aMessages,project,salesOrder) {
+        visualizarLog: function (aMessages, project, salesOrder) {
 
             var oMessageView = new sap.m.MessageView({
                 showDetailsPageHeader: true,
@@ -844,7 +915,7 @@ sap.ui.define([
                         press: function () {
                             //oDialog.close();
                             sap.m.URLHelper.redirect(
-                                "sap/bc/ui2/flp#CustomerProject-maintainCustomerProject&/Display/ProjEngagementsSet/" + project ,
+                                "sap/bc/ui2/flp#CustomerProject-maintainCustomerProject&/Display/ProjEngagementsSet/" + project,
                                 true
                             );
                         }
@@ -870,6 +941,128 @@ sap.ui.define([
             });
 
             oDialog.open();
+        },
+
+        onCustomerValueHelp: async function () {
+            if (!this._oCustomerDialog) {
+                this._oCustomerDialog = sap.ui.xmlfragment(
+                    "com.co.stratesys.zpscrearproyectos.view.HelpCustomer",
+                    this
+                );
+                this.getView().addDependent(this._oCustomerDialog);
+            }
+
+            var aCustomers = await this.obtenerOdata("/sap/opu/odata4/sap/zsrv_project_entry/srvd/sap/zsrv_project_entry/0001/Clientes");
+
+            const oModel = new sap.ui.model.json.JSONModel({
+                customers: aCustomers
+            });
+
+            // ✅ Solo cambia esta línea
+            this.getView().setModel(oModel, "CustomerSet");
+
+            this._oCustomerDialog.open();
+
+            var oBinding = this._oCustomerDialog.getBinding("items");
+            if (oBinding) {
+                oBinding.filter([]);
+            }
+        },
+
+        onCustomerSearch: function (oEvent) {
+            var sValue = oEvent.getParameter("value");
+            var oFilter = new sap.ui.model.Filter({
+                filters: [
+                    new sap.ui.model.Filter("CustomerID", sap.ui.model.FilterOperator.Contains, sValue),
+                    new sap.ui.model.Filter("CustomerName", sap.ui.model.FilterOperator.Contains, sValue)
+                ],
+                and: false  // OR entre ID y Nombre
+            });
+            oEvent.getSource().getBinding("items").filter([oFilter]);
+        },
+
+        onCustomerCancel: function () {
+            this._oCustomerDialog.close();
+        },
+
+        onCustomerConfirm: function (oEvent) {
+            const oSelected = oEvent.getParameter("selectedItem");
+
+            if (oSelected) {
+                const oContext = oSelected.getBindingContext("CustomerSet");
+                const sPath = oContext.getPath(); // "/customers/3"
+                const oModel = oContext.getModel();
+
+                // Leer el objeto directamente por path
+                const oCustomer = oModel.getProperty(sPath);
+                console.log("Cliente:", oCustomer);
+
+                var oProjectModel = this.getView().getModel("ProjectSet");
+                if (oProjectModel && oCustomer) {
+                    oProjectModel.setProperty("/Customer", oCustomer.Customer);
+                }
+            }
+        },
+
+        onCustomerLiveChangeCustomer: function (oEvent) {
+            debugger;
+
+            var sQuery = oEvent.getParameter("value");
+            var oTableSelectDialog = oEvent.getSource();
+
+            // 1. Si el usuario sigue escribiendo, reiniciamos el temporizador de 2 segundos
+            if (this._searchTimeout) {
+                clearTimeout(this._searchTimeout);
+            }
+
+            // 2. Creamos la espera de 2 segundos (2000ms) antes de disparar el fetch
+            this._searchTimeout = setTimeout(async function () {
+
+                // URL base de tu servicio (ajústala a tu necesidad, ej: "/sap/opu/odata/sap/ZSERVICIO_SRV/CustomerSet")
+                var sBaseUrl = "/sap/opu/odata4/sap/zsrv_project_entry/srvd/sap/zsrv_project_entry/0001/Clientes";
+                var sUrlConFiltro = sBaseUrl;
+
+                // 3. Si hay texto, construimos el parámetro $filter de OData usando 'substringof' (OData V2)
+                // Nota: Si usas OData V4, se usa: contains(Customer,'texto')
+
+
+                if (sQuery && sQuery.length > 0) {
+                    var sODataFilter =
+                        //                  "contains(Customer, '" + sQuery + "') or " +
+                        //                "contains(CustomerName, '" + sQuery + "') or " +
+                        "contains(CustomerFullName, '" + sQuery + "')";
+
+                    // Agregamos el ? $filter = de manera limpia y codificamos SOLO las funciones contains
+                    sUrlConFiltro += "?$filter=" + encodeURIComponent(sODataFilter);
+                }
+
+                // 4. Encendemos el indicador de carga en el TableSelectDialog
+                oTableSelectDialog.setBusy(true);
+
+                try {
+                    // 5. Llamamos a tu función actual para obtener los datos del backend
+                    var aClientesFiltrados = await this.obtenerOdata(sUrlConFiltro);
+
+                    // 6. Actualizamos el JSONModel que está amarrado al fragmento
+                    // Nota: Asumo que tu modelo se llama 'CustomerSet'. Ajusta el nombre si es necesario.
+                    var oModel = this.getView().getModel("CustomerSet");
+                    if (!oModel) {
+                        oModel = new sap.ui.model.json.JSONModel();
+                        this.getView().setModel(oModel, "CustomerSet");
+                    }
+
+                    // Seteamos los nuevos datos filtrados que trajo el fetch
+                    oModel.setProperty("/customers", aClientesFiltrados || []);
+
+                } catch (oError) {
+                    console.error("Error al filtrar OData: ", oError);
+                } finally {
+                    // 7. Apagamos el indicador de carga pase lo que pase
+                    oTableSelectDialog.setBusy(false);
+                }
+
+            }.bind(this), 1000);
+
         }
 
     });

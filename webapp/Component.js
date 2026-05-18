@@ -18,7 +18,10 @@ sap.ui.define([
 
             // Modelo para guardar ProjectID
             var oProjectIDModel = new sap.ui.model.json.JSONModel({
-                ProjectID: ""
+                ProjectID: "",
+                OrgId: "",
+                CostCenter: "",
+                Company:"",
             });
             
             // set the device model

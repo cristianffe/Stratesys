@@ -1,572 +1,675 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc"
-	xmlns="sap.uxap"
-	xmlns:layout="sap.ui.layout"
-	xmlns:form="sap.ui.layout.form"
-	xmlns:m="sap.m"
-	xmlns:ui="sap.ui.table"
-	xmlns:core="sap.ui.core"
-	controllerName="com.co.stratesys.zpscrearproyectos.controller.Principal"
-	height="100%">
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:m="sap.m"
+    xmlns:ui="sap.ui.table"
+    xmlns:core="sap.ui.core"
+    controllerName="com.co.stratesys.zpscrearproyectos.controller.Principal"
+    height="100%"
+>
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!--   SPLITTER PRINCIPAL                                        -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <layout:Splitter
+        id="mainSplitter"
+        height="100%"
+        orientation="Horizontal"
+    >
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--   MASTER — Ficha del proyecto                          -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <m:Page
+            id="masterPage"
+            title="Proyecto"
+            showNavButton="false"
+            height="100%"
+        >
 
-	<m:SplitApp id="splitApp">
+            <m:subHeader>
+                <m:Bar>
+                    <m:contentMiddle>
+                        <m:SearchField
+                            id="masterSearch"
+                            placeholder="Buscar proyecto..."
+                            width="100%"
+                            liveChange=".onMasterSearch"
+                            search=".onMasterSearch"
+                        />
+                    </m:contentMiddle>
+                </m:Bar>
+            </m:subHeader>
 
-		<!-- ═══════════════════════════════════════════════════════════ -->
-		<!--   MASTER — Ficha del proyecto                              -->
-		<!-- ═══════════════════════════════════════════════════════════ -->
-		<m:masterPages>
-			<m:Page id="masterPage" title="Proyecto" showNavButton="false">
+            <m:content>
+                <m:VBox
+                    id="masterFieldsBox"
+                    class="sapUiSmallMargin"
+                >
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="ProjectName" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>ProjectName}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="ProjectStage" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>ProjectStage}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="OrgID" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>OrgID}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="ProjectCategory" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>ProjectCategory}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="Currency" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>Currency}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="StartDate" width="180px" design="Bold" />
+                        <m:Text text="{path: 'ProjectSet>StartDate'}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="EndDate" width="180px" design="Bold" />
+                        <m:Text text="{path: 'ProjectSet>EndDate'}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="ProjManagerExtId" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>ProjManagerExtId}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="Customer" width="180px" design="Bold" />
+                        <m:Input
+                            value="{ProjectSet>Customer}"
+                            showValueHelp="true"
+                            valueHelpOnly="false"
+                            valueHelpRequest="onCustomerValueHelp"
+                            placeholder=""
+                        />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="CostCenter" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>CostCenter}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="ProfitCenter" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>ProfitCenter}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="ProjAccountantExtId" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>ProjAccountantExtId}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="ProjControllerExtId" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>ProjControllerExtId}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="ProjPartnerExtId" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>ProjPartnerExtId}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="ProjectDesc" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>ProjectDesc}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="Confidential" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>Confidential}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="UseProjectBilling" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>UseProjectBilling}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="RestrictTimePosting" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>RestrictTimePosting}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="YY1_ACTIVE_Cpr" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>YY1_ACTIVE_Cpr}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="YY1_Geografia_Cpr" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>YY1_Geografia_Cpr}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="YY1_Producto_Cpr" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>YY1_Producto_Cpr}" />
+                    </m:HBox>
+                    <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                        <m:Label text="YY1_Tipodeproyecto_Cpr" width="180px" design="Bold" />
+                        <m:Text text="{ProjectSet>YY1_Tipodeproyecto_Cpr}" />
+                    </m:HBox>
+                </m:VBox>
+            </m:content>
+        </m:Page>
 
-				<m:subHeader>
-					<m:Bar>
-						<m:contentMiddle>
-							<m:SearchField
-								id="masterSearch"
-								placeholder="Buscar proyecto..."
-								width="100%"
-								liveChange=".onMasterSearch"
-								search=".onMasterSearch"/>
-						</m:contentMiddle>
-					</m:Bar>
-				</m:subHeader>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--   DETAIL — ObjectPage con header y tabs                -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <m:Page
+            id="detailPage"
+            showNavButton="false"
+            title="Planificar proyectos de cliente"
+            class="sapUiNoContentPadding"
+            height="100%"
+        >
 
-				<m:content>
-					<m:VBox id="masterFieldsBox" class="sapUiSmallMargin">
+            <!-- ── HEADER ── -->
+            <m:customHeader>
+                <m:Bar>
+                    <m:contentLeft>
+                        <m:Title
+                            text="{= ${ProjectSet>ProjectName} + ' (' + ${AppModel>/ProjectID} + ')'}"
+                            titleStyle="H3"
+                            class="sapThemeHighlight-asColor"
+                        />
+                    </m:contentLeft>
+                    <m:contentRight>
+                        <m:Button
+                            text="Cargar Archivo"
+                            type="Emphasized"
+                            icon="sap-icon://upload"
+                            press=".onUploadFile"
+                        />
+                        <m:Button
+                            text="Crear"
+                            type="Emphasized"
+                            icon="sap-icon://create-form"
+                            press=".onCreate"
+                        />
+                    </m:contentRight>
+                </m:Bar>
+            </m:customHeader>
 
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="ProjectName" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>ProjectName}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="ProjectStage" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>ProjectStage}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="OrgID" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>OrgID}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="ProjectCategory" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>ProjectCategory}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="Currency" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>Currency}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="StartDate" width="180px" design="Bold"/>
-							<m:Text text="{path: 'ProjectSet>StartDate'}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="EndDate" width="180px" design="Bold"/>
-							<m:Text text="{path: 'ProjectSet>EndDate'}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="ProjManagerExtId" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>ProjManagerExtId}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="Customer" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>Customer}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="CostCenter" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>CostCenter}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="ProfitCenter" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>ProfitCenter}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="ProjAccountantExtId" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>ProjAccountantExtId}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="ProjControllerExtId" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>ProjControllerExtId}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="ProjPartnerExtId" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>ProjPartnerExtId}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="ProjectDesc" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>ProjectDesc}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="Confidential" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>Confidential}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="UseProjectBilling" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>UseProjectBilling}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="RestrictTimePosting" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>RestrictTimePosting}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="YY1_ACTIVE_Cpr" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>YY1_ACTIVE_Cpr}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="YY1_Geografia_Cpr" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>YY1_Geografia_Cpr}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="YY1_Producto_Cpr" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>YY1_Producto_Cpr}"/>
-						</m:HBox>
-						<m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-							<m:Label text="YY1_Tipodeproyecto_Cpr" width="180px" design="Bold"/>
-							<m:Text text="{ProjectSet>YY1_Tipodeproyecto_Cpr}"/>
-						</m:HBox>
+            <m:content>
+                <m:IconTabBar
+                    id="mainTabBar"
+                    stretchContentHeight="true"
+                    class="sapUiResponsiveContentPadding"
+                >
+                    <m:items>
+                        <!-- TAB 1 · Paquetes de trabajo -->
+                        <m:IconTabFilter
+                            text="Paquetes de trabajo"
+                            icon="sap-icon://wrench"
+                        >
+                            <m:Panel headerText="" expandable="false">
+                                <m:content>
+                                    <ui:Table
+                                        id="wbsTable"
+                                        rows="{WBSSet>/}"
+                                        noDataText="No hay paquetes de trabajo"
+                                        visibleRowCount="10"
+                                        enableColumnReordering="true"
+                                        selectionMode="None"
+                                        columnHeaderHeight="32"
+                                        rowHeight="36"
+                                    >
+                                        <ui:columns>
+                                            <ui:Column width="180px" resizable="true" autoResizable="true">
+                                                <m:Label text="WorkPackageName" />
+                                                <ui:template>
+                                                    <m:Text text="{WBSSet>WorkPackageName}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="180px" resizable="true" autoResizable="true">
+                                                <m:Label text="Description" />
+                                                <ui:template>
+                                                    <m:Text text="{WBSSet>Description}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="110px" resizable="true" autoResizable="true">
+                                                <m:Label text="StartDate" />
+                                                <ui:template>
+                                                    <m:Text text="{path: 'WBSSet>StartDate'}" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="110px" resizable="true" autoResizable="true">
+                                                <m:Label text="WPEndDate" />
+                                                <ui:template>
+                                                    <m:Text text="{path: 'WBSSet>EndDate'}" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="150px" resizable="true" autoResizable="true">
+                                                <m:Label text="WorkPackageType" />
+                                                <ui:template>
+                                                    <m:Text text="{WBSSet>WorkPackageType}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="120px" resizable="true" autoResizable="true" hAlign="End">
+                                                <m:Label text="UnitQuantity" />
+                                                <ui:template>
+                                                    <m:Text text="{WBSSet>UnitQuantity}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="100px" resizable="true" autoResizable="true">
+                                                <m:Label text="UnitId" />
+                                                <ui:template>
+                                                    <m:Text text="{WBSSet>UnitId}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="220px" resizable="true" autoResizable="true">
+                                                <m:Label text="YY1_TipodeproyectoSub_cpd" />
+                                                <ui:template>
+                                                    <m:Text text="{WBSSet>YY1_TipodeproyectoSub_cpd}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                        </ui:columns>
+                                    </ui:Table>
+                                </m:content>
+                            </m:Panel>
+                        </m:IconTabFilter>
 
-					</m:VBox>
-				</m:content>
-			</m:Page>
-		</m:masterPages>
+                        <!-- TAB 2 · ResourceDemand -->
+                        <m:IconTabFilter
+                            text="ResourceDemand"
+                            icon="sap-icon://group"
+                        >
+                            <m:Panel headerText="" expandable="false">
+                                <m:content>
+                                    <ui:Table
+                                        id="resourceTable"
+                                        rows="{ResourceSet>/}"
+                                        noDataText="No hay recursos asignados"
+                                        enableColumnReordering="true"
+                                        selectionMode="None"
+                                        columnHeaderHeight="32"
+                                    >
+                                        <ui:columns>
+                                            <ui:Column width="80px" resizable="true" autoResizable="true">
+                                                <m:Label text="WorkPackage" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>WorkPackage}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="80px" resizable="true" autoResizable="true">
+                                                <m:Label text="Version" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>Version}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="150px" resizable="true" autoResizable="true">
+                                                <m:Label text="EngagementProject" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>EngagementProject}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="120px" resizable="true" autoResizable="true">
+                                                <m:Label text="WorkItem" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>WorkItem}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="180px" resizable="true" autoResizable="true">
+                                                <m:Label text="BillingControlCategory" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>BillingControlCategory}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="180px" resizable="true" autoResizable="true">
+                                                <m:Label text="DeliveryOrganization" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>DeliveryOrganization}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="230px" resizable="true" autoResizable="true">
+                                                <m:Label text="EngagementProjectResourceType" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>EngagementProjectResourceType}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="200px" resizable="true" autoResizable="true">
+                                                <m:Label text="EngagementProjectResource" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>EngagementProjectResource}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="190px" resizable="true" autoResizable="true">
+                                                <m:Label text="WorkforcePersonUserID" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>WorkforcePersonUserID}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="170px" resizable="true" autoResizable="true">
+                                                <m:Label text="PersonWorkAgreement" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>PersonWorkAgreement}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="180px" resizable="true" autoResizable="true">
+                                                <m:Label text="ResourceDemandStatus" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>ResourceDemandStatus}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="130px" resizable="true" autoResizable="true">
+                                                <m:Label text="UnitOfMeasure" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>UnitOfMeasure}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="110px" resizable="true" autoResizable="true" hAlign="End">
+                                                <m:Label text="Quantity" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>Quantity}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="100px" resizable="true" autoResizable="true">
+                                                <m:Label text="Currency" />
+                                                <ui:template>
+                                                    <m:Text text="{ResourceSet>Currency}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                        </ui:columns>
+                                    </ui:Table>
+                                </m:content>
+                            </m:Panel>
+                        </m:IconTabFilter>
 
-		<!-- ═══════════════════════════════════════════════════════════ -->
-		<!--   DETAIL — ObjectPage con header y tabs                    -->
-		<!-- ═══════════════════════════════════════════════════════════ -->
-		<m:detailPages>
-			<m:Page id="detailPage" showNavButton="false" title="Planificar proyectos de cliente" class="sapUiNoContentPadding">
+                        <!-- TAB 3 · Billing Data -->
+                        <m:IconTabFilter
+                            text="Billing Data"
+                            icon="sap-icon://money-bills"
+                        >
+                            <m:Panel headerText="" expandable="false">
+                                <m:content>
+                                    <ui:Table
+                                        id="billingTable"
+                                        rows="{BillingSet>/}"
+                                        enableColumnReordering="true"
+                                        selectionMode="None"
+                                        columnHeaderHeight="32"
+                                    >
+                                        <ui:columns>
+                                            <ui:Column width="120px" resizable="true" autoResizable="true">
+                                                <m:Label text="SalesOrderItem" />
+                                                <ui:template>
+                                                    <m:Text text="{BillingSet>SalesOrderItem}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="130px" resizable="true" autoResizable="true">
+                                                <m:Label text="BillingPlanItem" />
+                                                <ui:template>
+                                                    <m:Text text="{BillingSet>BillingPlanItem}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="110px" resizable="true" autoResizable="true">
+                                                <m:Label text="SalesOrder" />
+                                                <ui:template>
+                                                    <m:Text text="{BillingSet>SalesOrder}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="180px" resizable="true" autoResizable="true">
+                                                <m:Label text="BillingPlanBillingDate" />
+                                                <ui:template>
+                                                    <m:Text
+                                                        text="{path: 'BillingSet>BillingPlanBillingDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy'}}"
+                                                        wrapping="false"
+                                                    />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="210px" resizable="true" autoResizable="true">
+                                                <m:Label text="BillingPlanRelatedBillgStatus" />
+                                                <ui:template>
+                                                    <m:Text text="{BillingSet>BillingPlanRelatedBillgStatus}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="150px" resizable="true" autoResizable="true" hAlign="End">
+                                                <m:Label text="BillingPlanAmount" />
+                                                <ui:template>
+                                                    <m:Text text="{BillingSet>BillingPlanAmount}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="160px" resizable="true" autoResizable="true">
+                                                <m:Label text="TransactionCurrency" />
+                                                <ui:template>
+                                                    <m:Text text="{BillingSet>TransactionCurrency}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="170px" resizable="true" autoResizable="true">
+                                                <m:Label text="BillingPlanItemUsage" />
+                                                <ui:template>
+                                                    <m:Text text="{BillingSet>BillingPlanItemUsage}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="350px" resizable="true" autoResizable="true">
+                                                <m:Label text="BillingPlanItemDescription" />
+                                                <ui:template>
+                                                    <m:Text text="{BillingSet>BillingPlanItemDescription}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="210px" resizable="true" autoResizable="true">
+                                                <m:Label text="BillingPlanServiceStartDate" />
+                                                <ui:template>
+                                                    <m:Text text="{path: 'BillingSet>BillingPlanServiceStartDate'}" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="200px" resizable="true" autoResizable="true">
+                                                <m:Label text="BillingPlanServiceEndDate" />
+                                                <ui:template>
+                                                    <m:Text text="{path: 'BillingSet>BillingPlanServiceEndDate'}" />
+                                                </ui:template>
+                                            </ui:Column>
+                                        </ui:columns>
+                                    </ui:Table>
+                                </m:content>
+                            </m:Panel>
+                        </m:IconTabFilter>
+                    </m:items>
+                </m:IconTabBar>
+            </m:content>
+        </m:Page>
+    </layout:Splitter>
 
-				<!-- ── HEADER ── -->
-				<m:customHeader>
-					<m:Bar>
-						<m:contentLeft>
-							<!-- Título estilo SAP grande y azul sin CSS externo -->
-							<m:Title
-								text="{= ${ProjectSet>ProjectName} + ' (' + ${AppModel>/ProjectID} + ')'}"
-								titleStyle="H3"
-								class="sapThemeHighlight-asColor"/>
-						</m:contentLeft>
-						<m:contentRight>
-							<m:Button text="Cargar Archivo" type="Emphasized" icon="sap-icon://upload" press=".onUploadFile"/>
-							<m:Button text="Crear" type="Emphasized" icon="sap-icon://create-form" press=".onCreate"/>
-						</m:contentRight>
-					</m:Bar>
-				</m:customHeader>
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!--   FILTER DIALOG                                                -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <m:Dialog
+        id="filterDialog"
+        title="Filtros avanzados"
+        contentWidth="460px"
+        contentHeight="600px"
+        draggable="true"
+        resizable="true"
+        verticalScrolling="true"
+    >
+        <m:content>
+            <m:VBox class="sapUiSmallMargin sapUiSmallMarginEnd">
+                <m:Title text="Identificación" level="H5" class="sapUiTinyMarginBottom" />
+                <m:HBox class="sapUiTinyMarginBottom">
+                    <m:VBox width="50%" class="sapUiTinyMarginEnd">
+                        <m:Label text="ProjectName" design="Bold" />
+                        <m:Input id="fProjectName" placeholder="Ej: Proyecto Alpha" width="100%" />
+                    </m:VBox>
+                    <m:VBox width="50%">
+                        <m:Label text="ProjectStage" design="Bold" />
+                        <m:Input id="fProjectStage" placeholder="Ej: Planning" width="100%" />
+                    </m:VBox>
+                </m:HBox>
+                <m:HBox class="sapUiTinyMarginBottom">
+                    <m:VBox width="50%" class="sapUiTinyMarginEnd">
+                        <m:Label text="OrgID" design="Bold" />
+                        <m:Input id="fOrgID" placeholder="Ej: 1000" width="100%" />
+                    </m:VBox>
+                    <m:VBox width="50%">
+                        <m:Label text="ProjectCategory" design="Bold" />
+                        <m:Input id="fProjectCategory" placeholder="" width="100%" />
+                    </m:VBox>
+                </m:HBox>
+                <m:HBox class="sapUiTinyMarginBottom">
+                    <m:VBox width="50%" class="sapUiTinyMarginEnd">
+                        <m:Label text="Currency" design="Bold" />
+                        <m:Input id="fCurrency" placeholder="Ej: COP, USD" width="100%" />
+                    </m:VBox>
+                    <m:VBox width="50%">
+                        <m:Label text="ProjectDesc" design="Bold" />
+                        <m:Input id="fProjectDesc" placeholder="" width="100%" />
+                    </m:VBox>
+                </m:HBox>
 
-				<m:content>
+                <m:ToolbarSeparator class="sapUiSmallMarginTopBottom" />
 
-					<m:IconTabBar id="mainTabBar" stretchContentHeight="true" class="sapUiResponsiveContentPadding">
+                <m:Title text="Fechas" level="H5" class="sapUiTinyMarginBottom" />
+                <m:HBox class="sapUiTinyMarginBottom">
+                    <m:VBox width="50%" class="sapUiTinyMarginEnd">
+                        <m:Label text="StartDate desde" design="Bold" />
+                        <m:DatePicker id="fStartDateFrom" placeholder="DD.MM.YYYY" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%" />
+                    </m:VBox>
+                    <m:VBox width="50%">
+                        <m:Label text="StartDate hasta" design="Bold" />
+                        <m:DatePicker id="fStartDateTo" placeholder="DD.MM.YYYY" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%" />
+                    </m:VBox>
+                </m:HBox>
+                <m:HBox class="sapUiTinyMarginBottom">
+                    <m:VBox width="50%" class="sapUiTinyMarginEnd">
+                        <m:Label text="EndDate desde" design="Bold" />
+                        <m:DatePicker id="fEndDateFrom" placeholder="DD.MM.YYYY" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%" />
+                    </m:VBox>
+                    <m:VBox width="50%">
+                        <m:Label text="EndDate hasta" design="Bold" />
+                        <m:DatePicker id="fEndDateTo" placeholder="DD.MM.YYYY" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%" />
+                    </m:VBox>
+                </m:HBox>
 
-						<m:items>
+                <m:ToolbarSeparator class="sapUiSmallMarginTopBottom" />
 
-							<!-- TAB 1 · Paquetes de trabajo -->
-							<m:IconTabFilter text="Paquetes de trabajo" icon="sap-icon://wrench">
-								<m:Panel headerText="" expandable="false">
-									<m:content>
-										<ui:Table
-											id="wbsTable"
-											rows="{WBSSet>/}"
-											noDataText="No hay paquetes de trabajo"
-											visibleRowCount="10"
-											enableColumnReordering="true"
-											selectionMode="None"
-											columnHeaderHeight="32"
-											rowHeight="36">
-											<ui:columns>
-												<ui:Column width="180px" resizable="true" autoResizable="true">
-													<m:Label text="WorkPackageName"/>
-													<ui:template><m:Text text="{WBSSet>WorkPackageName}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="180px" resizable="true" autoResizable="true">
-													<m:Label text="Description"/>
-													<ui:template><m:Text text="{WBSSet>Description}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="110px" resizable="true" autoResizable="true">
-													<m:Label text="StartDate"/>
-													<ui:template>
-														<m:Text text="{path: 'WBSSet>StartDate'}"/>
-													</ui:template>
-												</ui:Column>
-												<ui:Column width="110px" resizable="true" autoResizable="true">
-													<m:Label text="WPEndDate"/>
-													<ui:template>
-														<m:Text text="{path: 'WBSSet>EndDate'}"/>
-													</ui:template>
-												</ui:Column>
-												<ui:Column width="150px" resizable="true" autoResizable="true">
-													<m:Label text="WorkPackageType"/>
-													<ui:template><m:Text text="{WBSSet>WorkPackageType}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="120px" resizable="true" autoResizable="true" hAlign="End">
-													<m:Label text="UnitQuantity"/>
-													<ui:template><m:Text text="{WBSSet>UnitQuantity}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="100px" resizable="true" autoResizable="true">
-													<m:Label text="UnitId"/>
-													<ui:template><m:Text text="{WBSSet>UnitId}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="220px" resizable="true" autoResizable="true">
-													<m:Label text="YY1_TipodeproyectoSub_cpd"/>
-													<ui:template><m:Text text="{WBSSet>YY1_TipodeproyectoSub_cpd}" wrapping="false"/></ui:template>
-												</ui:Column>
-											</ui:columns>
-										</ui:Table>
-									</m:content>
-								</m:Panel>
-							</m:IconTabFilter>
+                <m:Title text="Responsables" level="H5" class="sapUiTinyMarginBottom" />
+                <m:HBox class="sapUiTinyMarginBottom">
+                    <m:VBox width="50%" class="sapUiTinyMarginEnd">
+                        <m:Label text="ProjManagerExtId" design="Bold" />
+                        <m:Input id="fProjManagerExtId" placeholder="" width="100%" />
+                    </m:VBox>
+                    <m:VBox width="50%">
+                        <m:Label text="ProjAccountantExtId" design="Bold" />
+                        <m:Input id="fProjAccountantExtId" placeholder="" width="100%" />
+                    </m:VBox>
+                </m:HBox>
+                <m:HBox class="sapUiTinyMarginBottom">
+                    <m:VBox width="50%" class="sapUiTinyMarginEnd">
+                        <m:Label text="ProjControllerExtId" design="Bold" />
+                        <m:Input id="fProjControllerExtId" placeholder="" width="100%" />
+                    </m:VBox>
+                    <m:VBox width="50%">
+                        <m:Label text="ProjPartnerExtId" design="Bold" />
+                        <m:Input id="fProjPartnerExtId" placeholder="" width="100%" />
+                    </m:VBox>
+                </m:HBox>
 
-							<!-- TAB 2 · ResourceDemand -->
-							<m:IconTabFilter text="ResourceDemand" icon="sap-icon://group">
-								<m:Panel headerText="" expandable="false">
-									<m:content>
-										<ui:Table
-											id="resourceTable"
-											rows="{ResourceSet>/}"
-											noDataText="No hay recursos asignados"
-											enableColumnReordering="true"
-											selectionMode="None"
-											columnHeaderHeight="32">
-											<ui:columns>
-												<ui:Column width="80px" resizable="true" autoResizable="true">
-													<m:Label text="WorkPackage"/>
-													<ui:template><m:Text text="{ResourceSet>WorkPackage}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="80px" resizable="true" autoResizable="true">
-													<m:Label text="Version"/>
-													<ui:template><m:Text text="{ResourceSet>Version}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="150px" resizable="true" autoResizable="true">
-													<m:Label text="EngagementProject"/>
-													<ui:template><m:Text text="{ResourceSet>EngagementProject}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="120px" resizable="true" autoResizable="true">
-													<m:Label text="WorkItem"/>
-													<ui:template><m:Text text="{ResourceSet>WorkItem}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="180px" resizable="true" autoResizable="true">
-													<m:Label text="BillingControlCategory"/>
-													<ui:template><m:Text text="{ResourceSet>BillingControlCategory}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="180px" resizable="true" autoResizable="true">
-													<m:Label text="DeliveryOrganization"/>
-													<ui:template><m:Text text="{ResourceSet>DeliveryOrganization}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="230px" resizable="true" autoResizable="true">
-													<m:Label text="EngagementProjectResourceType"/>
-													<ui:template><m:Text text="{ResourceSet>EngagementProjectResourceType}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="200px" resizable="true" autoResizable="true">
-													<m:Label text="EngagementProjectResource"/>
-													<ui:template><m:Text text="{ResourceSet>EngagementProjectResource}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="190px" resizable="true" autoResizable="true">
-													<m:Label text="WorkforcePersonUserID"/>
-													<ui:template><m:Text text="{ResourceSet>WorkforcePersonUserID}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="170px" resizable="true" autoResizable="true">
-													<m:Label text="PersonWorkAgreement"/>
-													<ui:template><m:Text text="{ResourceSet>PersonWorkAgreement}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="180px" resizable="true" autoResizable="true">
-													<m:Label text="ResourceDemandStatus"/>
-													<ui:template><m:Text text="{ResourceSet>ResourceDemandStatus}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="130px" resizable="true" autoResizable="true">
-													<m:Label text="UnitOfMeasure"/>
-													<ui:template><m:Text text="{ResourceSet>UnitOfMeasure}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="110px" resizable="true" autoResizable="true" hAlign="End">
-													<m:Label text="Quantity"/>
-													<ui:template><m:Text text="{ResourceSet>Quantity}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="100px" resizable="true" autoResizable="true">
-													<m:Label text="Currency"/>
-													<ui:template><m:Text text="{ResourceSet>Currency}" wrapping="false"/></ui:template>
-												</ui:Column>
-											</ui:columns>
-										</ui:Table>
-									</m:content>
-								</m:Panel>
-							</m:IconTabFilter>
+                <m:ToolbarSeparator class="sapUiSmallMarginTopBottom" />
 
-							<!-- TAB 3 · Billing Data -->
-							<m:IconTabFilter text="Billing Data" icon="sap-icon://money-bills">
-								<m:Panel headerText="" expandable="false">
-									<m:content>
-										<ui:Table
-											id="billingTable"
-											rows="{BillingSet>/}"
-											enableColumnReordering="true"
-											selectionMode="None"
-											columnHeaderHeight="32">
-											<ui:columns>
-												<ui:Column width="120px" resizable="true" autoResizable="true">
-													<m:Label text="SalesOrderItem"/>
-													<ui:template><m:Text text="{BillingSet>SalesOrderItem}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="130px" resizable="true" autoResizable="true">
-													<m:Label text="BillingPlanItem"/>
-													<ui:template><m:Text text="{BillingSet>BillingPlanItem}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="110px" resizable="true" autoResizable="true">
-													<m:Label text="SalesOrder"/>
-													<ui:template><m:Text text="{BillingSet>SalesOrder}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="180px" resizable="true" autoResizable="true">
-													<m:Label text="BillingPlanBillingDate"/>
-													<ui:template>
-														<m:Text text="{path: 'BillingSet>BillingPlanBillingDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy'}}" wrapping="false"/>
-													</ui:template>
-												</ui:Column>
-												<ui:Column width="210px" resizable="true" autoResizable="true">
-													<m:Label text="BillingPlanRelatedBillgStatus"/>
-													<ui:template><m:Text text="{BillingSet>BillingPlanRelatedBillgStatus}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="150px" resizable="true" autoResizable="true" hAlign="End">
-													<m:Label text="BillingPlanAmount"/>
-													<ui:template><m:Text text="{BillingSet>BillingPlanAmount}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="160px" resizable="true" autoResizable="true">
-													<m:Label text="TransactionCurrency"/>
-													<ui:template><m:Text text="{BillingSet>TransactionCurrency}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="170px" resizable="true" autoResizable="true">
-													<m:Label text="BillingPlanItemUsage"/>
-													<ui:template><m:Text text="{BillingSet>BillingPlanItemUsage}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="350px" resizable="true" autoResizable="true">
-													<m:Label text="BillingPlanItemDescription"/>
-													<ui:template><m:Text text="{BillingSet>BillingPlanItemDescription}" wrapping="false"/></ui:template>
-												</ui:Column>
-												<ui:Column width="210px" resizable="true" autoResizable="true">
-													<m:Label text="BillingPlanServiceStartDate"/>
-													<ui:template>
-														<m:Text text="{path: 'BillingSet>BillingPlanServiceStartDate'}"/>
-													</ui:template>
-												</ui:Column>
-												<ui:Column width="200px" resizable="true" autoResizable="true">
-													<m:Label text="BillingPlanServiceEndDate"/>
-													<ui:template>
-														<m:Text text="{path: 'BillingSet>BillingPlanServiceEndDate'}"/>
-													</ui:template>
-												</ui:Column>
-											</ui:columns>
-										</ui:Table>
-									</m:content>
-								</m:Panel>
-							</m:IconTabFilter>
+                <m:Title text="Organización" level="H5" class="sapUiTinyMarginBottom" />
+                <m:HBox class="sapUiTinyMarginBottom">
+                    <m:VBox width="50%" class="sapUiTinyMarginEnd">
+                        <m:Label text="Customer" design="Bold" />
+                        <m:Input id="fCustomer" placeholder="" width="100%" />
+                    </m:VBox>
+                    <m:VBox width="50%">
+                        <m:Label text="CostCenter" design="Bold" />
+                        <m:Input id="fCostCenter" placeholder="" width="100%" />
+                    </m:VBox>
+                </m:HBox>
+                <m:HBox class="sapUiTinyMarginBottom">
+                    <m:VBox width="50%" class="sapUiTinyMarginEnd">
+                        <m:Label text="ProfitCenter" design="Bold" />
+                        <m:Input id="fProfitCenter" placeholder="" width="100%" />
+                    </m:VBox>
+                    <m:VBox width="50%">
+                        <m:Label text="YY1_ACTIVE_Cpr" design="Bold" />
+                        <m:Select id="fActive" width="100%">
+                            <m:items>
+                                <core:Item key="" text="(Todos)" />
+                                <core:Item key="true" text="Activo" />
+                                <core:Item key="false" text="Inactivo" />
+                            </m:items>
+                        </m:Select>
+                    </m:VBox>
+                </m:HBox>
 
-						</m:items>
-					</m:IconTabBar>
+                <m:ToolbarSeparator class="sapUiSmallMarginTopBottom" />
 
-				</m:content>
-			</m:Page>
-		</m:detailPages>
+                <m:Title text="Clasificación" level="H5" class="sapUiTinyMarginBottom" />
+                <m:HBox class="sapUiTinyMarginBottom">
+                    <m:VBox width="50%" class="sapUiTinyMarginEnd">
+                        <m:Label text="YY1_Geografia_Cpr" design="Bold" />
+                        <m:Input id="fGeografia" placeholder="" width="100%" />
+                    </m:VBox>
+                    <m:VBox width="50%">
+                        <m:Label text="YY1_Producto_Cpr" design="Bold" />
+                        <m:Input id="fProducto" placeholder="" width="100%" />
+                    </m:VBox>
+                </m:HBox>
+                <m:HBox class="sapUiTinyMarginBottom">
+                    <m:VBox width="50%" class="sapUiTinyMarginEnd">
+                        <m:Label text="YY1_Tipodeproyecto_Cpr" design="Bold" />
+                        <m:Input id="fTipoproyecto" placeholder="" width="100%" />
+                    </m:VBox>
+                    <m:VBox width="50%" />
+                </m:HBox>
 
-	</m:SplitApp>
+                <m:ToolbarSeparator class="sapUiSmallMarginTopBottom" />
 
+                <m:Title text="Opciones" level="H5" class="sapUiTinyMarginBottom" />
+                <m:HBox class="sapUiTinyMarginBottom">
+                    <m:VBox width="50%" class="sapUiTinyMarginEnd">
+                        <m:Label text="Confidential" design="Bold" />
+                        <m:Select id="fConfidential" width="100%">
+                            <m:items>
+                                <core:Item key="" text="(Todos)" />
+                                <core:Item key="true" text="Sí" />
+                                <core:Item key="false" text="No" />
+                            </m:items>
+                        </m:Select>
+                    </m:VBox>
+                    <m:VBox width="50%">
+                        <m:Label text="UseProjectBilling" design="Bold" />
+                        <m:Select id="fUseProjectBilling" width="100%">
+                            <m:items>
+                                <core:Item key="" text="(Todos)" />
+                                <core:Item key="true" text="Sí" />
+                                <core:Item key="false" text="No" />
+                            </m:items>
+                        </m:Select>
+                    </m:VBox>
+                </m:HBox>
+                <m:HBox class="sapUiTinyMarginBottom">
+                    <m:VBox width="50%" class="sapUiTinyMarginEnd">
+                        <m:Label text="RestrictTimePosting" design="Bold" />
+                        <m:Select id="fRestrictTimePosting" width="100%">
+                            <m:items>
+                                <core:Item key="" text="(Todos)" />
+                                <core:Item key="true" text="Sí" />
+                                <core:Item key="false" text="No" />
+                            </m:items>
+                        </m:Select>
+                    </m:VBox>
+                    <m:VBox width="50%" />
+                </m:HBox>
+            </m:VBox>
+        </m:content>
 
-	<!-- ═══════════════════════════════════════════════════════════════ -->
-	<!--   FILTER DIALOG                                                -->
-	<!-- ═══════════════════════════════════════════════════════════════ -->
-	<m:Dialog
-		id="filterDialog"
-		title="Filtros avanzados"
-		contentWidth="460px"
-		contentHeight="600px"
-		draggable="true"
-		resizable="true"
-		verticalScrolling="true">
-
-		<m:content>
-			<m:VBox class="sapUiSmallMargin sapUiSmallMarginEnd">
-
-				<m:Title text="Identificación" level="H5" class="sapUiTinyMarginBottom"/>
-				<m:HBox class="sapUiTinyMarginBottom">
-					<m:VBox width="50%" class="sapUiTinyMarginEnd">
-						<m:Label text="ProjectName" design="Bold"/>
-						<m:Input id="fProjectName" placeholder="Ej: Proyecto Alpha" width="100%"/>
-					</m:VBox>
-					<m:VBox width="50%">
-						<m:Label text="ProjectStage" design="Bold"/>
-						<m:Input id="fProjectStage" placeholder="Ej: Planning" width="100%"/>
-					</m:VBox>
-				</m:HBox>
-
-				<m:HBox class="sapUiTinyMarginBottom">
-					<m:VBox width="50%" class="sapUiTinyMarginEnd">
-						<m:Label text="OrgID" design="Bold"/>
-						<m:Input id="fOrgID" placeholder="Ej: 1000" width="100%"/>
-					</m:VBox>
-					<m:VBox width="50%">
-						<m:Label text="ProjectCategory" design="Bold"/>
-						<m:Input id="fProjectCategory" placeholder="" width="100%"/>
-					</m:VBox>
-				</m:HBox>
-
-				<m:HBox class="sapUiTinyMarginBottom">
-					<m:VBox width="50%" class="sapUiTinyMarginEnd">
-						<m:Label text="Currency" design="Bold"/>
-						<m:Input id="fCurrency" placeholder="Ej: COP, USD" width="100%"/>
-					</m:VBox>
-					<m:VBox width="50%">
-						<m:Label text="ProjectDesc" design="Bold"/>
-						<m:Input id="fProjectDesc" placeholder="" width="100%"/>
-					</m:VBox>
-				</m:HBox>
-
-				<m:ToolbarSeparator class="sapUiSmallMarginTopBottom"/>
-
-				<m:Title text="Fechas" level="H5" class="sapUiTinyMarginBottom"/>
-				<m:HBox class="sapUiTinyMarginBottom">
-					<m:VBox width="50%" class="sapUiTinyMarginEnd">
-						<m:Label text="StartDate desde" design="Bold"/>
-						<m:DatePicker id="fStartDateFrom" placeholder="DD.MM.YYYY" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%"/>
-					</m:VBox>
-					<m:VBox width="50%">
-						<m:Label text="StartDate hasta" design="Bold"/>
-						<m:DatePicker id="fStartDateTo" placeholder="DD.MM.YYYY" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%"/>
-					</m:VBox>
-				</m:HBox>
-
-				<m:HBox class="sapUiTinyMarginBottom">
-					<m:VBox width="50%" class="sapUiTinyMarginEnd">
-						<m:Label text="EndDate desde" design="Bold"/>
-						<m:DatePicker id="fEndDateFrom" placeholder="DD.MM.YYYY" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%"/>
-					</m:VBox>
-					<m:VBox width="50%">
-						<m:Label text="EndDate hasta" design="Bold"/>
-						<m:DatePicker id="fEndDateTo" placeholder="DD.MM.YYYY" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%"/>
-					</m:VBox>
-				</m:HBox>
-
-				<m:ToolbarSeparator class="sapUiSmallMarginTopBottom"/>
-
-				<m:Title text="Responsables" level="H5" class="sapUiTinyMarginBottom"/>
-				<m:HBox class="sapUiTinyMarginBottom">
-					<m:VBox width="50%" class="sapUiTinyMarginEnd">
-						<m:Label text="ProjManagerExtId" design="Bold"/>
-						<m:Input id="fProjManagerExtId" placeholder="" width="100%"/>
-					</m:VBox>
-					<m:VBox width="50%">
-						<m:Label text="ProjAccountantExtId" design="Bold"/>
-						<m:Input id="fProjAccountantExtId" placeholder="" width="100%"/>
-					</m:VBox>
-				</m:HBox>
-
-				<m:HBox class="sapUiTinyMarginBottom">
-					<m:VBox width="50%" class="sapUiTinyMarginEnd">
-						<m:Label text="ProjControllerExtId" design="Bold"/>
-						<m:Input id="fProjControllerExtId" placeholder="" width="100%"/>
-					</m:VBox>
-					<m:VBox width="50%">
-						<m:Label text="ProjPartnerExtId" design="Bold"/>
-						<m:Input id="fProjPartnerExtId" placeholder="" width="100%"/>
-					</m:VBox>
-				</m:HBox>
-
-				<m:ToolbarSeparator class="sapUiSmallMarginTopBottom"/>
-
-				<m:Title text="Organización" level="H5" class="sapUiTinyMarginBottom"/>
-				<m:HBox class="sapUiTinyMarginBottom">
-					<m:VBox width="50%" class="sapUiTinyMarginEnd">
-						<m:Label text="Customer" design="Bold"/>
-						<m:Input id="fCustomer" placeholder="" width="100%"/>
-					</m:VBox>
-					<m:VBox width="50%">
-						<m:Label text="CostCenter" design="Bold"/>
-						<m:Input id="fCostCenter" placeholder="" width="100%"/>
-					</m:VBox>
-				</m:HBox>
-
-				<m:HBox class="sapUiTinyMarginBottom">
-					<m:VBox width="50%" class="sapUiTinyMarginEnd">
-						<m:Label text="ProfitCenter" design="Bold"/>
-						<m:Input id="fProfitCenter" placeholder="" width="100%"/>
-					</m:VBox>
-					<m:VBox width="50%">
-						<m:Label text="YY1_ACTIVE_Cpr" design="Bold"/>
-						<m:Select id="fActive" width="100%">
-							<m:items>
-								<core:Item key="" text="(Todos)"/>
-								<core:Item key="true"  text="Activo"/>
-								<core:Item key="false" text="Inactivo"/>
-							</m:items>
-						</m:Select>
-					</m:VBox>
-				</m:HBox>
-
-				<m:ToolbarSeparator class="sapUiSmallMarginTopBottom"/>
-
-				<m:Title text="Clasificación" level="H5" class="sapUiTinyMarginBottom"/>
-				<m:HBox class="sapUiTinyMarginBottom">
-					<m:VBox width="50%" class="sapUiTinyMarginEnd">
-						<m:Label text="YY1_Geografia_Cpr" design="Bold"/>
-						<m:Input id="fGeografia" placeholder="" width="100%"/>
-					</m:VBox>
-					<m:VBox width="50%">
-						<m:Label text="YY1_Producto_Cpr" design="Bold"/>
-						<m:Input id="fProducto" placeholder="" width="100%"/>
-					</m:VBox>
-				</m:HBox>
-
-				<m:HBox class="sapUiTinyMarginBottom">
-					<m:VBox width="50%" class="sapUiTinyMarginEnd">
-						<m:Label text="YY1_Tipodeproyecto_Cpr" design="Bold"/>
-						<m:Input id="fTipoproyecto" placeholder="" width="100%"/>
-					</m:VBox>
-					<m:VBox width="50%"/>
-				</m:HBox>
-
-				<m:ToolbarSeparator class="sapUiSmallMarginTopBottom"/>
-
-				<m:Title text="Opciones" level="H5" class="sapUiTinyMarginBottom"/>
-				<m:HBox class="sapUiTinyMarginBottom">
-					<m:VBox width="50%" class="sapUiTinyMarginEnd">
-						<m:Label text="Confidential" design="Bold"/>
-						<m:Select id="fConfidential" width="100%">
-							<m:items>
-								<core:Item key="" text="(Todos)"/>
-								<core:Item key="true"  text="Sí"/>
-								<core:Item key="false" text="No"/>
-							</m:items>
-						</m:Select>
-					</m:VBox>
-					<m:VBox width="50%">
-						<m:Label text="UseProjectBilling" design="Bold"/>
-						<m:Select id="fUseProjectBilling" width="100%">
-							<m:items>
-								<core:Item key="" text="(Todos)"/>
-								<core:Item key="true"  text="Sí"/>
-								<core:Item key="false" text="No"/>
-							</m:items>
-						</m:Select>
-					</m:VBox>
-				</m:HBox>
-
-				<m:HBox class="sapUiTinyMarginBottom">
-					<m:VBox width="50%" class="sapUiTinyMarginEnd">
-						<m:Label text="RestrictTimePosting" design="Bold"/>
-						<m:Select id="fRestrictTimePosting" width="100%">
-							<m:items>
-								<core:Item key="" text="(Todos)"/>
-								<core:Item key="true"  text="Sí"/>
-								<core:Item key="false" text="No"/>
-							</m:items>
-						</m:Select>
-					</m:VBox>
-					<m:VBox width="50%"/>
-				</m:HBox>
-
-			</m:VBox>
-		</m:content>
-
-		<m:beginButton>
-			<m:Button text="Aplicar filtros" type="Emphasized" icon="sap-icon://filter" press=".onApplyFilter"/>
-		</m:beginButton>
-		<m:endButton>
-			<m:Button text="Limpiar" type="Transparent" icon="sap-icon://clear-filter" press=".onClearFilter"/>
-		</m:endButton>
-		<m:buttons>
-			<m:Button text="Cerrar" type="Default" press=".onCloseFilterDialog"/>
-		</m:buttons>
-
-	</m:Dialog>
-
+        <m:beginButton>
+            <m:Button
+                text="Aplicar filtros"
+                type="Emphasized"
+                icon="sap-icon://filter"
+                press=".onApplyFilter"
+            />
+        </m:beginButton>
+        <m:endButton>
+            <m:Button
+                text="Limpiar"
+                type="Transparent"
+                icon="sap-icon://clear-filter"
+                press=".onClearFilter"
+            />
+        </m:endButton>
+        <m:buttons>
+            <m:Button
+                text="Cerrar"
+                type="Default"
+                press=".onCloseFilterDialog"
+            />
+        </m:buttons>
+    </m:Dialog>
 </mvc:View>

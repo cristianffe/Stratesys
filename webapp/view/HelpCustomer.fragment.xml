@@ -1,0 +1,45 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <TableSelectDialog
+        id="customerSelectDialog"
+        title="Seleccionar Cliente"
+        search=".onCustomerLiveChangeCustomer"
+        confirm=".onCustomerConfirm"
+        liveChange=".onCustomerLiveChangeCustomer"
+        cancel=".onCustomerCancel"
+        items="{CustomerSet>/customers}"
+        noDataText="No se encontraron clientes"
+        growing="true"
+        growingThreshold="20"
+        contentHeight="40%"
+        contentWidth="50%"
+    >
+        <!-- Definir columnas -->
+        <columns>
+            <Column>
+                <Text text="ID Cliente"/>
+            </Column>
+            <Column>
+                <Text text="Nombre"/>
+            </Column>
+            <Column>
+                <Text text="Nombre Completo"/>
+            </Column>
+        </columns>
+
+        <!-- Definir filas -->
+        <ColumnListItem
+            type="Active"
+            icon="sap-icon://customer"
+        >
+            <cells>
+                <Text text="{CustomerSet>Customer}"/>
+                <Text text="{CustomerSet>CustomerName}"/>
+                <Text text="{CustomerSet>CustomerFullName}"/>
+            </cells>
+        </ColumnListItem>
+
+    </TableSelectDialog>
+</core:FragmentDefinition>
