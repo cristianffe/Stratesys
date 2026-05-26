@@ -24,7 +24,6 @@
             id="masterPage"
             title="Proyecto"
             showNavButton="false"
-            height="100%"
         >
 
             <m:subHeader>
@@ -80,13 +79,22 @@
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
                         <m:Label text="Customer" width="180px" design="Bold" />
-                        <m:Input
+                        <m:ComboBox 
+                            id="customerComboBox"
+                            width="100%"
+                            items="{/ClientsSet}"
+                            change=".onCustomerChange"
+                            value="{ProjectSet>Customer}"
+                        >
+                        <core:Item text="{CustomerName} - {Customer}" key="{Customer}" />
+                        </m:ComboBox>
+                        <!-- <m:Input
                             value="{ProjectSet>Customer}"
                             showValueHelp="true"
                             valueHelpOnly="false"
                             valueHelpRequest="onCustomerValueHelp"
                             placeholder=""
-                        />
+                        /> -->
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
                         <m:Label text="CostCenter" width="180px" design="Bold" />
@@ -160,7 +168,7 @@
                 <m:Bar>
                     <m:contentLeft>
                         <m:Title
-                            text="{= ${ProjectSet>ProjectName} + ' (' + ${AppModel>/ProjectID} + ')'}"
+                            text="{= ${ProjectSet>ProjectName} }"
                             titleStyle="H3"
                             class="sapThemeHighlight-asColor"
                         />

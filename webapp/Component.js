@@ -22,6 +22,7 @@ sap.ui.define([
                 OrgId: "",
                 CostCenter: "",
                 Company:"",
+                ClientsSet: []
             });
             
             // set the device model

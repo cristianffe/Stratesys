@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "4.0"
+metadata:
+  name: com.co.stratesys.zpscrearproyectos
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          destination: DEVS4CloudStratesysInternal
+          url: https://my408492.s4hana.cloud.sap
+          client: '080'
+          authenticationType: reentranceTicket # SAML support for vscode
+        app:
+          name: ZPS_CREAR_PROY
+          description: Creación de Proyectos
+          package: ZPS_CREAR_PROYECTOS
+          transport: ZTRK901940
+        exclude:
+          - /test/

@@ -25,6 +25,10 @@ sap.ui.define([
 
     return Controller.extend("com.co.stratesys.zpscrearproyectos.controller.Funciones", {
 
+        onAfterRendering: function () {
+            alert.show("Bienvenido a la aplicación de creación de proyectos. Para comenzar, haz clic en el botón 'Cargar Excel' y selecciona tu archivo .xlsm con los datos del proyecto. Asegúrate de que el formato del Excel sea correcto para que los datos se mapeen correctamente. ¡Gracias por usar la aplicación!");
+        },
+
         onOpenDialog: function () {
 
             var modelApp = this.getOwnerComponent().getModel("modelApp");
@@ -38,7 +42,6 @@ sap.ui.define([
         },
 
         onFileChange: function (oEvent) {
-            debugger;
             this._oExcelFile = oEvent.getParameter("files")[0];
         },
 
@@ -72,7 +75,6 @@ sap.ui.define([
             this.getOwnerComponent().getModel("AppModel").setProperty("/Company", "");
 
             sap.ui.core.BusyIndicator.show(0);
-            debugger;
             await this.obtenerProjectID();
             // this.getView().getModel("AppModel").refresh(true);
 
@@ -173,14 +175,14 @@ sap.ui.define([
                     var oProjectData = {
                         // Datos generales
                         Currency: fnCell("B6").split("-")[0].trim(),   // "EUR - Euro"
-                        ProjectName: fnCell("H7"),   // "IA Expansión - JP"
-                        YY1_Geografia_Cpr: fnCell("K7"),   // Industria label row → ajustar
+                        ProjectName: fnCell("H7"),   // "(Cod. - CLiente ) IA Expansión - JP"
+                        YY1_Geografia_Cpr: fnCell("L11"),   // Industria label row
                         Customer: fnCell("H5"),   // Cliente → ajustar
 
                         // Responsables
                         ProjManagerExtId: fnCell("H9"),   // Socio/Director Responsable → ajustar
                         CostCenter: fnCell("L9"),   // Centro de Competencia → ajustar
-                        YY1_Tipodeproyecto_Cpr: fnCell("P9"),   // Tipo de Tecnología → ajustar
+                        YY1_Tipodeproyecto_Cpr: fnCell("F5") == 'X' ? '1' : fnCell("F6") == 'X' ? '2' : fnCell("F7") == 'X' ? '4' : fnCell("F8") == 'X' ? '3' : '',   // Tipo de Tecnología → ajustar
                         ProjControllerExtId: fnCell("H11"),  // Gerente → ajustar
                         ProfitCenter: fnCell("P7"),
                         ProjPartnerExtId: fnCell("H9"),
@@ -206,9 +208,7 @@ sap.ui.define([
                         UseProjectBilling: "X",
                         RestrictTimePosting: "N",
                         YY1_ACTIVE_Cpr: "Y",
-                        YY1_Geografia_Cpr: "BCN",
                         YY1_Producto_Cpr: "SW070",
-                        YY1_Tipodeproyecto_Cpr: "4"
                     };
 
                     var workPackage = [{
@@ -228,22 +228,27 @@ sap.ui.define([
                         Currency: fnCellResource("B6"),
                     }];
 
+                    let IPlanBilling = 7;
+                    let BillingPlan = [];
+                    debugger
+                    while(fnCellBilling("D" + IPlanBilling) != '') {
+                        const str = fnCellBilling("E" + IPlanBilling);
+                        const [day, month, year] = str.split("/").map(Number);
+                        const date = new Date(year, month - 1, day);
 
-                    var BillingPlan = [{
-                        SalesOrderItem: "",
-                        BillingPlanItem: "",
+                        BillingPlan.push({
+                        SalesOrderItem: IPlanBilling - 6,
+                        BillingPlanItem: IPlanBilling - 6,
                         SalesOrder: "",  // Empresa que factura → ajustar
-                        BillingPlanBillingDate: fnCellBilling("E7"),  // "01.04.2026"
+                        BillingPlanBillingDate: date,  // "01.04.2026"
                         BillingPlanRelatedBillgStatus: "A",  // No tengo este dato en el Excel de ejemplo
-                        BillingPlanAmount: fnCellBilling("H7"),
+                        BillingPlanAmount: fnCellBilling("H" + IPlanBilling),
                         TransactionCurrency: fnCellBilling("B6"),
-                        BillingPlanItemDescription: ""
-                    }]
+                        BillingPlanItemDescription: fnCellBilling("F" + IPlanBilling)
+                    });
 
-
-
-
-                    debugger;
+                    IPlanBilling++;
+                    }
 
                     // ── 4. Log para verificar mapeo ───────────────────────
                     console.log("ProjectData extraído:", oProjectData);
@@ -263,10 +268,27 @@ sap.ui.define([
 
                     // ── 6. Setear modelos ─────────────────────────────────
                     var oView = this.getView();
-                    oView.setModel(new sap.ui.model.json.JSONModel(oProjectData), "ProjectSet");
+                    oView.setModel(new sap.ui.model.json.JSONModel(oProjectData), "ProjectSet"); 
                     oView.setModel(new sap.ui.model.json.JSONModel(workPackage), "WBSSet");
                     oView.setModel(new sap.ui.model.json.JSONModel(resourceDemand), "ResourceSet");
                     oView.setModel(new sap.ui.model.json.JSONModel(BillingPlan), "BillingSet");
+
+                    // Fire change para customer
+                    setTimeout(() => {
+                        let customerComboBox = oView.byId("customerComboBox");
+                        customerComboBox.fireChange({ value: customerComboBox.getValue() });
+
+                        if (customerComboBox.getSelectedKey()) {
+                            let oldProjectName = this.getView().getModel("ProjectSet").getProperty("/ProjectName");
+                            this.getView().getModel("ProjectSet").setProperty("/ProjectName", customerComboBox.getSelectedKey() + " - " + oldProjectName);
+                            this.getView().getModel("ProjectSet").setProperty("/ProjectName", customerComboBox.getSelectedKey() + " - " + oldProjectName);
+                            this.getView().getModel("ProjectSet").setProperty("/ProjectName", customerComboBox.getSelectedKey() + " - " + oldProjectName);
+                        }
+                    }, 500);
+
+                    
+                    await this.fixTextToCode(oView);
+                    
 
                     oView.byId("masterPage").bindElement("ProjectSet>/");
                     oView.byId("detailPage").bindElement("ProjectSet>/");
@@ -289,6 +311,25 @@ sap.ui.define([
             }.bind(this);
 
             oReader.readAsArrayBuffer(oFile);
+        },
+
+        async fixTextToCode (oView) {
+            // Convertir Geografia a code
+            var sGeografia = oView.getModel("ProjectSet").getProperty("/YY1_Geografia_Cpr");
+            // Buscar en odata /Oficinas
+            var url = `/sap/opu/odata4/sap/zsrv_project_entry/srvd/sap/zsrv_project_entry/0001/Oficinas?$filter=SAP_Description eq '${sGeografia}'`;
+            var response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            debugger
+            var data = await response.json();
+            if (data.value && data.value.length > 0) {
+                var sCodigoGeografia = data.value[0].IDOficina;
+                oView.getModel("ProjectSet").setProperty("/YY1_Geografia_Cpr", sCodigoGeografia);
+            }
         },
 
         onUploadFile: function () {
@@ -532,7 +573,7 @@ sap.ui.define([
                 //CostCenter: oData.CostCenter || "",
                 CostCenter: this.getOwnerComponent().getModel("AppModel").getProperty("/CostCenter"),
                 Currency: oData.Currency.split("-")[0].trim(),
-                Customer:  oProjectModel.getProperty("/Customer").trim(),
+                Customer: oProjectModel.getProperty("/Customer").trim(),
                 // Customer: oData.Customer || ""
                 EndDate: oData.EndDate ? oData.EndDate + "T00:00:00" : null,
                 //OrgID: oData.OrgID || "",
@@ -550,7 +591,7 @@ sap.ui.define([
                 // ProjPartnerExtId: oData.ProjPartnerExtId || "",
                 ProjPartnerExtId: "0004",
                 ProjectCategory: oData.ProjectCategory || "",
-                ProjectDesc: oData.ProjectDesc || "",
+                ProjectDesc: oData.ProjectName || "",
                 ProjectName: oData.ProjectName || "",
                 // ProjectStage: oData.ProjectStage || "",
                 ProjectStage: "P001",
@@ -754,12 +795,8 @@ sap.ui.define([
                         'Accept': 'application/json'
                     }
                 });
-
-                debugger;
-
                 var data = await response.json();
                 //console.log("Resultado del GET:", data[0].value);
-                debugger;
             } catch (error) {
                 // console.error("Fallo en la petición:", error);
             }
@@ -784,12 +821,9 @@ sap.ui.define([
                     }
                 });
 
-                debugger;
-
                 var data = await response.json();
                 return data.value;
                 //console.log("Resultado del GET:", data[0].value);
-                debugger;
             } catch (error) {
                 // console.error("Fallo en la petición:", error);
             }
@@ -809,10 +843,6 @@ sap.ui.define([
                         'Accept': 'application/json'
                     }
                 });
-
-
-                debugger;
-
                 var data = await response.json();
 
                 var empresa = data.value.find(i => i.campo === "EMPRESA")?.valores;
@@ -823,20 +853,15 @@ sap.ui.define([
                 this.getOwnerComponent().getModel("AppModel").setProperty("/CostCenter", ceco);
                 this.getOwnerComponent().getModel("AppModel").setProperty("/Company", empresa);
                 //console.log("Resultado del GET:", data[0].value);
-                debugger;
             } catch (error) {
                 // console.error("Fallo en la petición:", error);
             }
-
-            debugger;
-
-
             // return sProjectID;
 
         },
 
         planFacturacion: function (billing, projectId) {
-
+            debugger
             var oItemBilling = billing[0];
 
             var oBodyBilling = {
@@ -849,7 +874,7 @@ sap.ui.define([
                     SalesOrderItemCategory: "PS01",  // Número item ej: "10"
                     ExpectedNetAmount: oItemBilling.BillingPlanAmount,  // Monto neto esperado
                     TransactionCurrency: oItemBilling.TransactionCurrency.split("-")[0].trim(),  // Moneda ej: "EUR"
-                    SalesOrderItem: "10",
+                    SalesOrderItem: "1",
                     SalesOrderItemText: "",
 
                     to_CustProjSlsOrdItemWorkPckg: [{
@@ -1005,8 +1030,6 @@ sap.ui.define([
         },
 
         onCustomerLiveChangeCustomer: function (oEvent) {
-            debugger;
-
             var sQuery = oEvent.getParameter("value");
             var oTableSelectDialog = oEvent.getSource();
 
