@@ -1,19 +1,44 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified">
-<Dialog id="dlgCargaArchivo" title="Cargar archivo Excel" draggable="true" resizable="true" contentWidth="400px">
-<content>
-<l:VerticalLayout class="sapUiSmallMargin">
-<u:FileUploader id="fileUploader" fileType="xlsm" change="onFileChange" placeholder="Selecciona un archivo Excel (.xlsx)" style="Emphasized"/>
-</l:VerticalLayout>
-</content>
-<beginButton>
-<Button text="Procesar archivo" press="onProcesarExcel"/>
-</beginButton>
-<endButton>
-<Input id="inputPassword" 
-       type="Password" 
-       placeholder="Contraseña del archivo" 
-       width="100%"/>
-<Button text="Cerrar" press="closeDialog"/>
-</endButton>
-</Dialog>
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:u="sap.ui.unified"
+>
+    <Dialog
+        id="dlgCargaArchivo"
+        title="{i18n>UPLOAD_DIALOG_TITLE}"
+        draggable="true"
+        resizable="true"
+        contentWidth="400px"
+    >
+        <content>
+            <l:VerticalLayout class="sapUiSmallMargin">
+                <u:FileUploader
+                    id="fileUploader"
+                    fileType="xlsm"
+                    change="onFileChange"
+                    placeholder="{i18n>UPLOAD_PH_FILE}"
+                    style="Emphasized"
+                />
+            </l:VerticalLayout>
+        </content>
+        <beginButton>
+            <Button
+                text="{i18n>BTN_PROCESS_FILE}"
+                press="onProcesarExcel"
+            />
+        </beginButton>
+        <endButton>
+            <Input
+                id="inputPassword"
+                type="Password"
+                placeholder="{i18n>UPLOAD_PH_PASSWORD}"
+                width="100%"
+            />
+            <Button
+                text="{i18n>BTN_CLOSE}"
+                press="closeDialog"
+            />
+        </endButton>
+    </Dialog>
 </core:FragmentDefinition>

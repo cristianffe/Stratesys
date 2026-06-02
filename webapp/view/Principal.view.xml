@@ -23,7 +23,7 @@
         <!-- ═══════════════════════════════════════════════════════ -->
         <m:Page
             id="masterPage"
-            title="Proyecto"
+            title="{i18n>MASTER_PAGE_TITLE}"
             showNavButton="false"
         >
 
@@ -32,7 +32,7 @@
                     <m:contentMiddle>
                         <m:SearchField
                             id="masterSearch"
-                            placeholder="Buscar proyecto..."
+                            placeholder="{i18n>MASTER_SEARCH_PLACEHOLDER}"
                             width="100%"
                             liveChange=".onMasterSearch"
                             search=".onMasterSearch"
@@ -47,133 +47,123 @@
                     class="sapUiSmallMargin"
                 >
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="ProjectName" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_PROJECT_NAME}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>CustomerID} - {ProjectSet>ProjectName}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="ProjectStage" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_PROJECT_STAGE}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>ProjectStage}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="OrgID" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_ORG_ID}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>OrgID}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="ProjectCategory" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_PROJECT_CATEGORY}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>ProjectCategory}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="Currency" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_CURRENCY}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>Currency}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="StartDate" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_START_DATE}" width="180px" design="Bold" />
                         <m:Text text="{path: 'ProjectSet>StartDate'}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="EndDate" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_END_DATE}" width="180px" design="Bold" />
                         <m:Text text="{path: 'ProjectSet>EndDate'}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="ProjManagerExtId" width="180px" design="Bold" />
-                        <m:ComboBox 
+                        <m:Label text="{i18n>LBL_PROJ_MANAGER_EXT_ID}" width="180px" design="Bold" />
+                        <m:ComboBox
                             id="projectManagerComboBox"
                             width="100%"
                             items="{/ProjectManagerSet}"
                             change=".onProjManagerChange"
                             value="{ProjectSet>ProjManagerExt}"
                         >
-                        <core:Item text="{PersonFullName}" key="{PersonExternalID}" />
+                            <core:Item text="{PersonFullName}" key="{PersonExternalID}" />
                         </m:ComboBox>
-                        <!-- <m:Text text="{ProjectSet>ProjManagerExtId}" /> -->
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="Customer" width="180px" design="Bold" />
-                        <m:ComboBox 
+                        <m:Label text="{i18n>LBL_CUSTOMER}" width="180px" design="Bold" />
+                        <m:ComboBox
                             id="customerComboBox"
                             width="100%"
                             items="{/ClientsSet}"
                             change=".onCustomerChange"
                             value="{ProjectSet>Customer}"
                         >
-                        <core:Item text="{CustomerName}" key="{AddressSearchTerm1}" />
+                            <core:Item text="{CustomerName}" key="{AddressSearchTerm1}" />
                         </m:ComboBox>
-                        <!-- <m:Input
-                            value="{ProjectSet>Customer}"
-                            showValueHelp="true"
-                            valueHelpOnly="false"
-                            valueHelpRequest="onCustomerValueHelp"
-                            placeholder=""
-                        /> -->
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="CostCenter" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_COST_CENTER}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>CostCenter}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="ProfitCenter" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_PROFIT_CENTER}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>ProfitCenter}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="ProjAccountantExtId" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_PROJ_ACCOUNTANT_EXT_ID}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>ProjAccountantExtId}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="ProjControllerExtId" width="180px" design="Bold" />
-                        <m:ComboBox 
+                        <m:Label text="{i18n>LBL_PROJ_CONTROLLER_EXT_ID}" width="180px" design="Bold" />
+                        <m:ComboBox
                             id="projectControllerComboBox"
                             width="100%"
                             items="{/ProjectControllerSet}"
                             change=".onProjectControllerChange"
                             value="{ProjectSet>ProjControllerExt}"
                         >
-                        <core:Item text="{PersonFullName}" key="{PersonExternalID}" />
+                            <core:Item text="{PersonFullName}" key="{PersonExternalID}" />
                         </m:ComboBox>
-                        <!-- <m:Text text="{ProjectSet>ProjControllerExtId}" /> -->
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="ProjPartnerExtId" width="180px" design="Bold" />
-                        <m:ComboBox 
+                        <m:Label text="{i18n>LBL_PROJ_PARTNER_EXT_ID}" width="180px" design="Bold" />
+                        <m:ComboBox
                             id="projectPartnerComboBox"
                             width="100%"
                             items="{/ProjectPartnerSet}"
                             change=".onProjPartnerChange"
                             value="{ProjectSet>ProjPartnerExt}"
                         >
-                        <core:Item text="{PersonFullName}" key="{PersonExternalID}" />
+                            <core:Item text="{PersonFullName}" key="{PersonExternalID}" />
                         </m:ComboBox>
-                        <!-- <m:Text text="{ProjectSet>ProjPartnerExtId}" /> -->
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="ProjectDesc" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_PROJECT_DESC}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>CustomerID} - {ProjectSet>ProjectName}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="Confidential" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_CONFIDENTIAL}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>Confidential}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="UseProjectBilling" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_USE_PROJECT_BILLING}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>UseProjectBilling}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="RestrictTimePosting" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_RESTRICT_TIME_POSTING}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>RestrictTimePosting}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="YY1_ACTIVE_Cpr" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_YY1_ACTIVE}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>YY1_ACTIVE_Cpr}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="YY1_Geografia_Cpr" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_YY1_GEOGRAFIA}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>YY1_Geografia_Cpr}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="YY1_Producto_Cpr" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_YY1_PRODUCTO}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>YY1_Producto_Cpr}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
-                        <m:Label text="YY1_Tipodeproyecto_Cpr" width="180px" design="Bold" />
+                        <m:Label text="{i18n>LBL_YY1_TIPO_PROYECTO}" width="180px" design="Bold" />
                         <m:Text text="{ProjectSet>YY1_Tipodeproyecto_Cpr}" />
                     </m:HBox>
                 </m:VBox>
@@ -186,7 +176,7 @@
         <m:Page
             id="detailPage"
             showNavButton="false"
-            title="Planificar proyectos de cliente"
+            title="{i18n>DETAIL_PAGE_TITLE}"
             class="sapUiNoContentPadding"
         >
             <!-- ── HEADER ── -->
@@ -201,13 +191,13 @@
                     </m:contentLeft>
                     <m:contentRight>
                         <m:Button
-                            text="Cargar Archivo"
+                            text="{i18n>BTN_UPLOAD_FILE}"
                             type="Emphasized"
                             icon="sap-icon://upload"
                             press=".onUploadFile"
                         />
                         <m:Button
-                            text="Crear"
+                            text="{i18n>BTN_CREATE}"
                             type="Emphasized"
                             icon="sap-icon://create-form"
                             press=".onCreate"
@@ -225,7 +215,7 @@
                     <m:items>
                         <!-- TAB 1 · Paquetes de trabajo -->
                         <m:IconTabFilter
-                            text="Paquetes de trabajo"
+                            text="{i18n>TAB_WORK_PACKAGES}"
                             icon="sap-icon://wrench"
                         >
                             <m:Panel headerText="" expandable="false">
@@ -241,49 +231,49 @@
                                     >
                                         <ui:columns>
                                             <ui:Column width="180px" resizable="true" autoResizable="true">
-                                                <m:Label text="WorkPackageName" />
+                                                <m:Label text="{i18n>COL_WORK_PACKAGE_NAME}" />
                                                 <ui:template>
                                                     <m:Text text="{WBSSet>WorkPackageName}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="180px" resizable="true" autoResizable="true">
-                                                <m:Label text="Description" />
+                                                <m:Label text="{i18n>COL_DESCRIPTION}" />
                                                 <ui:template>
                                                     <m:Text text="{WBSSet>Description}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="110px" resizable="true" autoResizable="true">
-                                                <m:Label text="StartDate" />
+                                                <m:Label text="{i18n>COL_START_DATE}" />
                                                 <ui:template>
                                                     <m:Text text="{path: 'WBSSet>StartDate'}" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="110px" resizable="true" autoResizable="true">
-                                                <m:Label text="WPEndDate" />
+                                                <m:Label text="{i18n>COL_END_DATE}" />
                                                 <ui:template>
                                                     <m:Text text="{path: 'WBSSet>EndDate'}" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="150px" resizable="true" autoResizable="true">
-                                                <m:Label text="WorkPackageType" />
+                                                <m:Label text="{i18n>COL_WORK_PACKAGE_TYPE}" />
                                                 <ui:template>
                                                     <m:Text text="{WBSSet>WorkPackageType}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="120px" resizable="true" autoResizable="true" hAlign="End">
-                                                <m:Label text="UnitQuantity" />
+                                                <m:Label text="{i18n>COL_UNIT_QUANTITY}" />
                                                 <ui:template>
                                                     <m:Text text="{WBSSet>UnitQuantity}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="100px" resizable="true" autoResizable="true">
-                                                <m:Label text="UnitId" />
+                                                <m:Label text="{i18n>COL_UNIT_ID}" />
                                                 <ui:template>
                                                     <m:Text text="{WBSSet>UnitId}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="220px" resizable="true" autoResizable="true">
-                                                <m:Label text="YY1_TipodeproyectoSub_cpd" />
+                                                <m:Label text="{i18n>COL_YY1_TIPO_PROYECTO_SUB}" />
                                                 <ui:template>
                                                     <m:Text text="{WBSSet>YY1_TipodeproyectoSub_cpd}" wrapping="false" />
                                                 </ui:template>
@@ -296,7 +286,7 @@
 
                         <!-- TAB 2 · ResourceDemand -->
                         <m:IconTabFilter
-                            text="ResourceDemand"
+                            text="{i18n>TAB_RESOURCE_DEMAND}"
                             icon="sap-icon://group"
                         >
                             <m:Panel headerText="" expandable="false">
@@ -310,85 +300,85 @@
                                     >
                                         <ui:columns>
                                             <ui:Column width="80px" resizable="true" autoResizable="true">
-                                                <m:Label text="WorkPackage" />
+                                                <m:Label text="{i18n>COL_WORK_PACKAGE}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>WorkPackage}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="80px" resizable="true" autoResizable="true">
-                                                <m:Label text="Version" />
+                                                <m:Label text="{i18n>COL_VERSION}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>Version}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="150px" resizable="true" autoResizable="true">
-                                                <m:Label text="EngagementProject" />
+                                                <m:Label text="{i18n>COL_ENGAGEMENT_PROJECT}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>EngagementProject}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="120px" resizable="true" autoResizable="true">
-                                                <m:Label text="WorkItem" />
+                                                <m:Label text="{i18n>COL_WORK_ITEM}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>WorkItem}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="180px" resizable="true" autoResizable="true">
-                                                <m:Label text="BillingControlCategory" />
+                                                <m:Label text="{i18n>COL_BILLING_CONTROL_CATEGORY}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>BillingControlCategory}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="180px" resizable="true" autoResizable="true">
-                                                <m:Label text="DeliveryOrganization" />
+                                                <m:Label text="{i18n>COL_DELIVERY_ORGANIZATION}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>DeliveryOrganization}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="230px" resizable="true" autoResizable="true">
-                                                <m:Label text="EngagementProjectResourceType" />
+                                                <m:Label text="{i18n>COL_ENGAGEMENT_PROJECT_RESOURCE_TYPE}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>EngagementProjectResourceType}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="200px" resizable="true" autoResizable="true">
-                                                <m:Label text="EngagementProjectResource" />
+                                                <m:Label text="{i18n>COL_ENGAGEMENT_PROJECT_RESOURCE}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>EngagementProjectResource}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="190px" resizable="true" autoResizable="true">
-                                                <m:Label text="WorkforcePersonUserID" />
+                                                <m:Label text="{i18n>COL_WORKFORCE_PERSON_USER_ID}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>WorkforcePersonUserID}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="170px" resizable="true" autoResizable="true">
-                                                <m:Label text="PersonWorkAgreement" />
+                                                <m:Label text="{i18n>COL_PERSON_WORK_AGREEMENT}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>PersonWorkAgreement}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="180px" resizable="true" autoResizable="true">
-                                                <m:Label text="ResourceDemandStatus" />
+                                                <m:Label text="{i18n>COL_RESOURCE_DEMAND_STATUS}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>ResourceDemandStatus}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="130px" resizable="true" autoResizable="true">
-                                                <m:Label text="UnitOfMeasure" />
+                                                <m:Label text="{i18n>COL_UNIT_OF_MEASURE}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>UnitOfMeasure}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="110px" resizable="true" autoResizable="true" hAlign="End">
-                                                <m:Label text="Quantity" />
+                                                <m:Label text="{i18n>COL_QUANTITY}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>Quantity}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="100px" resizable="true" autoResizable="true">
-                                                <m:Label text="Currency" />
+                                                <m:Label text="{i18n>COL_CURRENCY}" />
                                                 <ui:template>
                                                     <m:Text text="{ResourceSet>Currency}" wrapping="false" />
                                                 </ui:template>
@@ -401,7 +391,7 @@
 
                         <!-- TAB 3 · Billing Data -->
                         <m:IconTabFilter
-                            text="Billing Data"
+                            text="{i18n>TAB_BILLING_DATA}"
                             icon="sap-icon://money-bills"
                         >
                             <m:Panel headerText="" expandable="false">
@@ -415,25 +405,25 @@
                                     >
                                         <ui:columns>
                                             <ui:Column width="120px" resizable="true" autoResizable="true">
-                                                <m:Label text="SalesOrderItem" />
+                                                <m:Label text="{i18n>COL_SALES_ORDER_ITEM}" />
                                                 <ui:template>
                                                     <m:Text text="{BillingSet>SalesOrderItem}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="130px" resizable="true" autoResizable="true">
-                                                <m:Label text="BillingPlanItem" />
+                                                <m:Label text="{i18n>COL_BILLING_PLAN_ITEM}" />
                                                 <ui:template>
                                                     <m:Text text="{BillingSet>BillingPlanItem}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="110px" resizable="true" autoResizable="true">
-                                                <m:Label text="SalesOrder" />
+                                                <m:Label text="{i18n>COL_SALES_ORDER}" />
                                                 <ui:template>
                                                     <m:Text text="{BillingSet>SalesOrder}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="180px" resizable="true" autoResizable="true">
-                                                <m:Label text="BillingPlanBillingDate" />
+                                                <m:Label text="{i18n>COL_BILLING_PLAN_BILLING_DATE}" />
                                                 <ui:template>
                                                     <m:Text
                                                         text="{path: 'BillingSet>BillingPlanBillingDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy'}}"
@@ -442,43 +432,43 @@
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="210px" resizable="true" autoResizable="true">
-                                                <m:Label text="BillingPlanRelatedBillgStatus" />
+                                                <m:Label text="{i18n>COL_BILLING_PLAN_RELATED_BILLG_STATUS}" />
                                                 <ui:template>
                                                     <m:Text text="{BillingSet>BillingPlanRelatedBillgStatus}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="150px" resizable="true" autoResizable="true" hAlign="End">
-                                                <m:Label text="BillingPlanAmount" />
+                                                <m:Label text="{i18n>COL_BILLING_PLAN_AMOUNT}" />
                                                 <ui:template>
                                                     <m:Text text="{BillingSet>BillingPlanAmount}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="160px" resizable="true" autoResizable="true">
-                                                <m:Label text="TransactionCurrency" />
+                                                <m:Label text="{i18n>COL_TRANSACTION_CURRENCY}" />
                                                 <ui:template>
                                                     <m:Text text="{BillingSet>TransactionCurrency}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="170px" resizable="true" autoResizable="true">
-                                                <m:Label text="BillingPlanItemUsage" />
+                                                <m:Label text="{i18n>COL_BILLING_PLAN_ITEM_USAGE}" />
                                                 <ui:template>
                                                     <m:Text text="{BillingSet>BillingPlanItemUsage}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="350px" resizable="true" autoResizable="true">
-                                                <m:Label text="BillingPlanItemDescription" />
+                                                <m:Label text="{i18n>COL_BILLING_PLAN_ITEM_DESCRIPTION}" />
                                                 <ui:template>
                                                     <m:Text text="{BillingSet>BillingPlanItemDescription}" wrapping="false" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="210px" resizable="true" autoResizable="true">
-                                                <m:Label text="BillingPlanServiceStartDate" />
+                                                <m:Label text="{i18n>COL_BILLING_PLAN_SERVICE_START_DATE}" />
                                                 <ui:template>
                                                     <m:Text text="{path: 'BillingSet>BillingPlanServiceStartDate'}" />
                                                 </ui:template>
                                             </ui:Column>
                                             <ui:Column width="200px" resizable="true" autoResizable="true">
-                                                <m:Label text="BillingPlanServiceEndDate" />
+                                                <m:Label text="{i18n>COL_BILLING_PLAN_SERVICE_END_DATE}" />
                                                 <ui:template>
                                                     <m:Text text="{path: 'BillingSet>BillingPlanServiceEndDate'}" />
                                                 </ui:template>
@@ -486,10 +476,22 @@
                                         </ui:columns>
                                         <ui:footer>
                                             <m:OverflowToolbar id="infobar">
-                                                <m:ToolbarSpacer ></m:ToolbarSpacer>
-                                                <tnt:InfoLabel text="Total Coste: { parts: [ 'ProjectSet>/TotalCoste', { value: 'EUR' }, { value: 2 } ], formatter: '.formatCurrency' }" renderMode="Narrow" colorScheme="2"/>
-                                                <tnt:InfoLabel text="Total Venta: { parts: [ 'ProjectSet>/TotalVenta', { value: 'EUR' }, { value: 2 } ], formatter: '.formatCurrency' }" renderMode="Narrow" colorScheme="2"/>
-                                                <tnt:InfoLabel text="Total: { parts: [ 'ProjectSet>/Total',      { value: 'EUR' }, { value: 2 } ], formatter: '.formatCurrency' }" renderMode="Narrow" colorScheme="2"/>
+                                                <m:ToolbarSpacer />
+                                                <tnt:InfoLabel
+                                                    text="{ parts: [ { value: '{i18n>INFOLABEL_TOTAL_COSTE}' }, 'ProjectSet>/TotalCoste', { value: 'EUR' }, { value: 2 } ], formatter: '.formatCurrency' }"
+                                                    renderMode="Narrow"
+                                                    colorScheme="2"
+                                                />
+                                                <tnt:InfoLabel
+                                                    text="{ parts: [ { value: '{i18n>INFOLABEL_TOTAL_VENTA}' }, 'ProjectSet>/TotalVenta', { value: 'EUR' }, { value: 2 } ], formatter: '.formatCurrency' }"
+                                                    renderMode="Narrow"
+                                                    colorScheme="2"
+                                                />
+                                                <tnt:InfoLabel
+                                                    text="{ parts: [ { value: '{i18n>INFOLABEL_TOTAL}' }, 'ProjectSet>/Total', { value: 'EUR' }, { value: 2 } ], formatter: '.formatCurrency' }"
+                                                    renderMode="Narrow"
+                                                    colorScheme="2"
+                                                />
                                             </m:OverflowToolbar>
                                         </ui:footer>
                                     </ui:Table>
@@ -507,7 +509,7 @@
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <m:Dialog
         id="filterDialog"
-        title="Filtros avanzados"
+        title="{i18n>FILTER_DIALOG_TITLE}"
         contentWidth="460px"
         contentHeight="600px"
         draggable="true"
@@ -516,111 +518,111 @@
     >
         <m:content>
             <m:VBox class="sapUiSmallMargin sapUiSmallMarginEnd">
-                <m:Title text="Identificación" level="H5" class="sapUiTinyMarginBottom" />
+                <m:Title text="{i18n>FILTER_SECTION_IDENTIFICACION}" level="H5" class="sapUiTinyMarginBottom" />
                 <m:HBox class="sapUiTinyMarginBottom">
                     <m:VBox width="50%" class="sapUiTinyMarginEnd">
-                        <m:Label text="ProjectName" design="Bold" />
-                        <m:Input id="fProjectName" placeholder="Ej: Proyecto Alpha" width="100%" />
+                        <m:Label text="{i18n>FILTER_LBL_PROJECT_NAME}" design="Bold" />
+                        <m:Input id="fProjectName" placeholder="{i18n>FILTER_PH_PROJECT_NAME}" width="100%" />
                     </m:VBox>
                     <m:VBox width="50%">
-                        <m:Label text="ProjectStage" design="Bold" />
-                        <m:Input id="fProjectStage" placeholder="Ej: Planning" width="100%" />
+                        <m:Label text="{i18n>FILTER_LBL_PROJECT_STAGE}" design="Bold" />
+                        <m:Input id="fProjectStage" placeholder="{i18n>FILTER_PH_PROJECT_STAGE}" width="100%" />
                     </m:VBox>
                 </m:HBox>
                 <m:HBox class="sapUiTinyMarginBottom">
                     <m:VBox width="50%" class="sapUiTinyMarginEnd">
-                        <m:Label text="OrgID" design="Bold" />
-                        <m:Input id="fOrgID" placeholder="Ej: 1000" width="100%" />
+                        <m:Label text="{i18n>FILTER_LBL_ORG_ID}" design="Bold" />
+                        <m:Input id="fOrgID" placeholder="{i18n>FILTER_PH_ORG_ID}" width="100%" />
                     </m:VBox>
                     <m:VBox width="50%">
-                        <m:Label text="ProjectCategory" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_PROJECT_CATEGORY}" design="Bold" />
                         <m:Input id="fProjectCategory" placeholder="" width="100%" />
                     </m:VBox>
                 </m:HBox>
                 <m:HBox class="sapUiTinyMarginBottom">
                     <m:VBox width="50%" class="sapUiTinyMarginEnd">
-                        <m:Label text="Currency" design="Bold" />
-                        <m:Input id="fCurrency" placeholder="Ej: COP, USD" width="100%" />
+                        <m:Label text="{i18n>FILTER_LBL_CURRENCY}" design="Bold" />
+                        <m:Input id="fCurrency" placeholder="{i18n>FILTER_PH_CURRENCY}" width="100%" />
                     </m:VBox>
                     <m:VBox width="50%">
-                        <m:Label text="ProjectDesc" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_PROJECT_DESC}" design="Bold" />
                         <m:Input id="fProjectDesc" placeholder="" width="100%" />
                     </m:VBox>
                 </m:HBox>
 
                 <m:ToolbarSeparator class="sapUiSmallMarginTopBottom" />
 
-                <m:Title text="Fechas" level="H5" class="sapUiTinyMarginBottom" />
+                <m:Title text="{i18n>FILTER_SECTION_FECHAS}" level="H5" class="sapUiTinyMarginBottom" />
                 <m:HBox class="sapUiTinyMarginBottom">
                     <m:VBox width="50%" class="sapUiTinyMarginEnd">
-                        <m:Label text="StartDate desde" design="Bold" />
-                        <m:DatePicker id="fStartDateFrom" placeholder="DD.MM.YYYY" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%" />
+                        <m:Label text="{i18n>FILTER_LBL_START_DATE_FROM}" design="Bold" />
+                        <m:DatePicker id="fStartDateFrom" placeholder="{i18n>FILTER_PH_DATE}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%" />
                     </m:VBox>
                     <m:VBox width="50%">
-                        <m:Label text="StartDate hasta" design="Bold" />
-                        <m:DatePicker id="fStartDateTo" placeholder="DD.MM.YYYY" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%" />
+                        <m:Label text="{i18n>FILTER_LBL_START_DATE_TO}" design="Bold" />
+                        <m:DatePicker id="fStartDateTo" placeholder="{i18n>FILTER_PH_DATE}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%" />
                     </m:VBox>
                 </m:HBox>
                 <m:HBox class="sapUiTinyMarginBottom">
                     <m:VBox width="50%" class="sapUiTinyMarginEnd">
-                        <m:Label text="EndDate desde" design="Bold" />
-                        <m:DatePicker id="fEndDateFrom" placeholder="DD.MM.YYYY" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%" />
+                        <m:Label text="{i18n>FILTER_LBL_END_DATE_FROM}" design="Bold" />
+                        <m:DatePicker id="fEndDateFrom" placeholder="{i18n>FILTER_PH_DATE}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%" />
                     </m:VBox>
                     <m:VBox width="50%">
-                        <m:Label text="EndDate hasta" design="Bold" />
-                        <m:DatePicker id="fEndDateTo" placeholder="DD.MM.YYYY" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%" />
+                        <m:Label text="{i18n>FILTER_LBL_END_DATE_TO}" design="Bold" />
+                        <m:DatePicker id="fEndDateTo" placeholder="{i18n>FILTER_PH_DATE}" valueFormat="yyyy-MM-dd" displayFormat="dd.MM.yyyy" width="100%" />
                     </m:VBox>
                 </m:HBox>
 
                 <m:ToolbarSeparator class="sapUiSmallMarginTopBottom" />
 
-                <m:Title text="Responsables" level="H5" class="sapUiTinyMarginBottom" />
+                <m:Title text="{i18n>FILTER_SECTION_RESPONSABLES}" level="H5" class="sapUiTinyMarginBottom" />
                 <m:HBox class="sapUiTinyMarginBottom">
                     <m:VBox width="50%" class="sapUiTinyMarginEnd">
-                        <m:Label text="ProjManagerExtId" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_PROJ_MANAGER}" design="Bold" />
                         <m:Input id="fProjManagerExtId" placeholder="" width="100%" />
                     </m:VBox>
                     <m:VBox width="50%">
-                        <m:Label text="ProjAccountantExtId" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_PROJ_ACCOUNTANT}" design="Bold" />
                         <m:Input id="fProjAccountantExtId" placeholder="" width="100%" />
                     </m:VBox>
                 </m:HBox>
                 <m:HBox class="sapUiTinyMarginBottom">
                     <m:VBox width="50%" class="sapUiTinyMarginEnd">
-                        <m:Label text="ProjControllerExtId" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_PROJ_CONTROLLER}" design="Bold" />
                         <m:Input id="fProjControllerExtId" placeholder="" width="100%" />
                     </m:VBox>
                     <m:VBox width="50%">
-                        <m:Label text="ProjPartnerExtId" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_PROJ_PARTNER}" design="Bold" />
                         <m:Input id="fProjPartnerExtId" placeholder="" width="100%" />
                     </m:VBox>
                 </m:HBox>
 
                 <m:ToolbarSeparator class="sapUiSmallMarginTopBottom" />
 
-                <m:Title text="Organización" level="H5" class="sapUiTinyMarginBottom" />
+                <m:Title text="{i18n>FILTER_SECTION_ORGANIZACION}" level="H5" class="sapUiTinyMarginBottom" />
                 <m:HBox class="sapUiTinyMarginBottom">
                     <m:VBox width="50%" class="sapUiTinyMarginEnd">
-                        <m:Label text="Customer" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_CUSTOMER}" design="Bold" />
                         <m:Input id="fCustomer" placeholder="" width="100%" />
                     </m:VBox>
                     <m:VBox width="50%">
-                        <m:Label text="CostCenter" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_COST_CENTER}" design="Bold" />
                         <m:Input id="fCostCenter" placeholder="" width="100%" />
                     </m:VBox>
                 </m:HBox>
                 <m:HBox class="sapUiTinyMarginBottom">
                     <m:VBox width="50%" class="sapUiTinyMarginEnd">
-                        <m:Label text="ProfitCenter" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_PROFIT_CENTER}" design="Bold" />
                         <m:Input id="fProfitCenter" placeholder="" width="100%" />
                     </m:VBox>
                     <m:VBox width="50%">
-                        <m:Label text="YY1_ACTIVE_Cpr" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_YY1_ACTIVE}" design="Bold" />
                         <m:Select id="fActive" width="100%">
                             <m:items>
-                                <core:Item key="" text="(Todos)" />
-                                <core:Item key="true" text="Activo" />
-                                <core:Item key="false" text="Inactivo" />
+                                <core:Item key="" text="{i18n>FILTER_SELECT_ALL}" />
+                                <core:Item key="true" text="{i18n>FILTER_SELECT_ACTIVE}" />
+                                <core:Item key="false" text="{i18n>FILTER_SELECT_INACTIVE}" />
                             </m:items>
                         </m:Select>
                     </m:VBox>
@@ -628,20 +630,20 @@
 
                 <m:ToolbarSeparator class="sapUiSmallMarginTopBottom" />
 
-                <m:Title text="Clasificación" level="H5" class="sapUiTinyMarginBottom" />
+                <m:Title text="{i18n>FILTER_SECTION_CLASIFICACION}" level="H5" class="sapUiTinyMarginBottom" />
                 <m:HBox class="sapUiTinyMarginBottom">
                     <m:VBox width="50%" class="sapUiTinyMarginEnd">
-                        <m:Label text="YY1_Geografia_Cpr" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_YY1_GEOGRAFIA}" design="Bold" />
                         <m:Input id="fGeografia" placeholder="" width="100%" />
                     </m:VBox>
                     <m:VBox width="50%">
-                        <m:Label text="YY1_Producto_Cpr" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_YY1_PRODUCTO}" design="Bold" />
                         <m:Input id="fProducto" placeholder="" width="100%" />
                     </m:VBox>
                 </m:HBox>
                 <m:HBox class="sapUiTinyMarginBottom">
                     <m:VBox width="50%" class="sapUiTinyMarginEnd">
-                        <m:Label text="YY1_Tipodeproyecto_Cpr" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_YY1_TIPO_PROYECTO}" design="Bold" />
                         <m:Input id="fTipoproyecto" placeholder="" width="100%" />
                     </m:VBox>
                     <m:VBox width="50%" />
@@ -649,37 +651,37 @@
 
                 <m:ToolbarSeparator class="sapUiSmallMarginTopBottom" />
 
-                <m:Title text="Opciones" level="H5" class="sapUiTinyMarginBottom" />
+                <m:Title text="{i18n>FILTER_SECTION_OPCIONES}" level="H5" class="sapUiTinyMarginBottom" />
                 <m:HBox class="sapUiTinyMarginBottom">
                     <m:VBox width="50%" class="sapUiTinyMarginEnd">
-                        <m:Label text="Confidential" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_CONFIDENTIAL}" design="Bold" />
                         <m:Select id="fConfidential" width="100%">
                             <m:items>
-                                <core:Item key="" text="(Todos)" />
-                                <core:Item key="true" text="Sí" />
-                                <core:Item key="false" text="No" />
+                                <core:Item key="" text="{i18n>FILTER_SELECT_ALL}" />
+                                <core:Item key="true" text="{i18n>FILTER_SELECT_YES}" />
+                                <core:Item key="false" text="{i18n>FILTER_SELECT_NO}" />
                             </m:items>
                         </m:Select>
                     </m:VBox>
                     <m:VBox width="50%">
-                        <m:Label text="UseProjectBilling" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_USE_PROJECT_BILLING}" design="Bold" />
                         <m:Select id="fUseProjectBilling" width="100%">
                             <m:items>
-                                <core:Item key="" text="(Todos)" />
-                                <core:Item key="true" text="Sí" />
-                                <core:Item key="false" text="No" />
+                                <core:Item key="" text="{i18n>FILTER_SELECT_ALL}" />
+                                <core:Item key="true" text="{i18n>FILTER_SELECT_YES}" />
+                                <core:Item key="false" text="{i18n>FILTER_SELECT_NO}" />
                             </m:items>
                         </m:Select>
                     </m:VBox>
                 </m:HBox>
                 <m:HBox class="sapUiTinyMarginBottom">
                     <m:VBox width="50%" class="sapUiTinyMarginEnd">
-                        <m:Label text="RestrictTimePosting" design="Bold" />
+                        <m:Label text="{i18n>FILTER_LBL_RESTRICT_TIME_POSTING}" design="Bold" />
                         <m:Select id="fRestrictTimePosting" width="100%">
                             <m:items>
-                                <core:Item key="" text="(Todos)" />
-                                <core:Item key="true" text="Sí" />
-                                <core:Item key="false" text="No" />
+                                <core:Item key="" text="{i18n>FILTER_SELECT_ALL}" />
+                                <core:Item key="true" text="{i18n>FILTER_SELECT_YES}" />
+                                <core:Item key="false" text="{i18n>FILTER_SELECT_NO}" />
                             </m:items>
                         </m:Select>
                     </m:VBox>
@@ -690,7 +692,7 @@
 
         <m:beginButton>
             <m:Button
-                text="Aplicar filtros"
+                text="{i18n>BTN_APPLY_FILTERS}"
                 type="Emphasized"
                 icon="sap-icon://filter"
                 press=".onApplyFilter"
@@ -698,7 +700,7 @@
         </m:beginButton>
         <m:endButton>
             <m:Button
-                text="Limpiar"
+                text="{i18n>BTN_CLEAR_FILTERS}"
                 type="Transparent"
                 icon="sap-icon://clear-filter"
                 press=".onClearFilter"
@@ -706,7 +708,7 @@
         </m:endButton>
         <m:buttons>
             <m:Button
-                text="Cerrar"
+                text="{i18n>BTN_CLOSE}"
                 type="Default"
                 press=".onCloseFilterDialog"
             />

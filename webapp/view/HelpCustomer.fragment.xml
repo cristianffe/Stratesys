@@ -4,13 +4,13 @@
 >
     <TableSelectDialog
         id="customerSelectDialog"
-        title="Seleccionar Cliente"
+        title="{i18n>CUSTOMER_DIALOG_TITLE}"
         search=".onCustomerLiveChangeCustomer"
         confirm=".onCustomerConfirm"
         liveChange=".onCustomerLiveChangeCustomer"
         cancel=".onCustomerCancel"
         items="{CustomerSet>/customers}"
-        noDataText="No se encontraron clientes"
+        noDataText="{i18n>CUSTOMER_DIALOG_NO_DATA}"
         growing="true"
         growingThreshold="20"
         contentHeight="40%"
@@ -19,13 +19,13 @@
         <!-- Definir columnas -->
         <columns>
             <Column>
-                <Text text="ID Cliente"/>
+                <Text text="{i18n>CUSTOMER_COL_ID}"/>
             </Column>
             <Column>
-                <Text text="Nombre"/>
+                <Text text="{i18n>CUSTOMER_COL_NAME}"/>
             </Column>
             <Column>
-                <Text text="Nombre Completo"/>
+                <Text text="{i18n>CUSTOMER_COL_FULL_NAME}"/>
             </Column>
         </columns>
 
