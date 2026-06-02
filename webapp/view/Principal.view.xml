@@ -6,6 +6,7 @@
     xmlns:m="sap.m"
     xmlns:ui="sap.ui.table"
     xmlns:core="sap.ui.core"
+    xmlns:tnt="sap.tnt"
     controllerName="com.co.stratesys.zpscrearproyectos.controller.Principal"
     height="100%"
 >
@@ -47,7 +48,7 @@
                 >
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
                         <m:Label text="ProjectName" width="180px" design="Bold" />
-                        <m:Text text="{ProjectSet>ProjectName}" />
+                        <m:Text text="{ProjectSet>CustomerID} - {ProjectSet>ProjectName}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
                         <m:Label text="ProjectStage" width="180px" design="Bold" />
@@ -75,7 +76,16 @@
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
                         <m:Label text="ProjManagerExtId" width="180px" design="Bold" />
-                        <m:Text text="{ProjectSet>ProjManagerExtId}" />
+                        <m:ComboBox 
+                            id="projectManagerComboBox"
+                            width="100%"
+                            items="{/ProjectManagerSet}"
+                            change=".onProjManagerChange"
+                            value="{ProjectSet>ProjManagerExt}"
+                        >
+                        <core:Item text="{PersonFullName}" key="{PersonExternalID}" />
+                        </m:ComboBox>
+                        <!-- <m:Text text="{ProjectSet>ProjManagerExtId}" /> -->
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
                         <m:Label text="Customer" width="180px" design="Bold" />
@@ -86,7 +96,7 @@
                             change=".onCustomerChange"
                             value="{ProjectSet>Customer}"
                         >
-                        <core:Item text="{CustomerName} - {Customer}" key="{Customer}" />
+                        <core:Item text="{CustomerName}" key="{AddressSearchTerm1}" />
                         </m:ComboBox>
                         <!-- <m:Input
                             value="{ProjectSet>Customer}"
@@ -110,15 +120,33 @@
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
                         <m:Label text="ProjControllerExtId" width="180px" design="Bold" />
-                        <m:Text text="{ProjectSet>ProjControllerExtId}" />
+                        <m:ComboBox 
+                            id="projectControllerComboBox"
+                            width="100%"
+                            items="{/ProjectControllerSet}"
+                            change=".onProjectControllerChange"
+                            value="{ProjectSet>ProjControllerExt}"
+                        >
+                        <core:Item text="{PersonFullName}" key="{PersonExternalID}" />
+                        </m:ComboBox>
+                        <!-- <m:Text text="{ProjectSet>ProjControllerExtId}" /> -->
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
                         <m:Label text="ProjPartnerExtId" width="180px" design="Bold" />
-                        <m:Text text="{ProjectSet>ProjPartnerExtId}" />
+                        <m:ComboBox 
+                            id="projectPartnerComboBox"
+                            width="100%"
+                            items="{/ProjectPartnerSet}"
+                            change=".onProjPartnerChange"
+                            value="{ProjectSet>ProjPartnerExt}"
+                        >
+                        <core:Item text="{PersonFullName}" key="{PersonExternalID}" />
+                        </m:ComboBox>
+                        <!-- <m:Text text="{ProjectSet>ProjPartnerExtId}" /> -->
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
                         <m:Label text="ProjectDesc" width="180px" design="Bold" />
-                        <m:Text text="{ProjectSet>ProjectDesc}" />
+                        <m:Text text="{ProjectSet>CustomerID} - {ProjectSet>ProjectName}" />
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
                         <m:Label text="Confidential" width="180px" design="Bold" />
@@ -160,15 +188,13 @@
             showNavButton="false"
             title="Planificar proyectos de cliente"
             class="sapUiNoContentPadding"
-            height="100%"
         >
-
             <!-- ── HEADER ── -->
             <m:customHeader>
                 <m:Bar>
                     <m:contentLeft>
                         <m:Title
-                            text="{= ${ProjectSet>ProjectName} }"
+                            text="{ProjectSet>CustomerID} - {ProjectSet>ProjectName}"
                             titleStyle="H3"
                             class="sapThemeHighlight-asColor"
                         />
@@ -207,7 +233,6 @@
                                     <ui:Table
                                         id="wbsTable"
                                         rows="{WBSSet>/}"
-                                        noDataText="No hay paquetes de trabajo"
                                         visibleRowCount="10"
                                         enableColumnReordering="true"
                                         selectionMode="None"
@@ -279,7 +304,6 @@
                                     <ui:Table
                                         id="resourceTable"
                                         rows="{ResourceSet>/}"
-                                        noDataText="No hay recursos asignados"
                                         enableColumnReordering="true"
                                         selectionMode="None"
                                         columnHeaderHeight="32"
@@ -460,6 +484,14 @@
                                                 </ui:template>
                                             </ui:Column>
                                         </ui:columns>
+                                        <ui:footer>
+                                            <m:OverflowToolbar id="infobar">
+                                                <m:ToolbarSpacer ></m:ToolbarSpacer>
+                                                <tnt:InfoLabel text="Total Coste: { parts: [ 'ProjectSet>/TotalCoste', { value: 'EUR' }, { value: 2 } ], formatter: '.formatCurrency' }" renderMode="Narrow" colorScheme="2"/>
+                                                <tnt:InfoLabel text="Total Venta: { parts: [ 'ProjectSet>/TotalVenta', { value: 'EUR' }, { value: 2 } ], formatter: '.formatCurrency' }" renderMode="Narrow" colorScheme="2"/>
+                                                <tnt:InfoLabel text="Total: { parts: [ 'ProjectSet>/Total',      { value: 'EUR' }, { value: 2 } ], formatter: '.formatCurrency' }" renderMode="Narrow" colorScheme="2"/>
+                                            </m:OverflowToolbar>
+                                        </ui:footer>
                                     </ui:Table>
                                 </m:content>
                             </m:Panel>
