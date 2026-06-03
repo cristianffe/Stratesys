@@ -104,7 +104,15 @@
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
                         <m:Label text="{i18n>LBL_PROFIT_CENTER}" width="180px" design="Bold" />
-                        <m:Text text="{ProjectSet>ProfitCenter}" />
+                        <m:ComboBox
+                            id="profitCenterComboBox"
+                            width="100%"
+                            items="{/ProfitCenterSet}"
+                            change=".onProfitCenterChange"
+                            value="{ProjectSet>ProfitCenterSelected}"
+                        >
+                            <core:Item text="{DescriptivoIndustria}" key="{ProfitCenter}" />
+                        </m:ComboBox>
                     </m:HBox>
                     <m:HBox alignItems="Center" class="sapUiTinyMarginBottom">
                         <m:Label text="{i18n>LBL_PROJ_ACCOUNTANT_EXT_ID}" width="180px" design="Bold" />
@@ -494,6 +502,40 @@
                                                 />
                                             </m:OverflowToolbar>
                                         </ui:footer>
+                                    </ui:Table>
+                                </m:content>
+                            </m:Panel>
+                        </m:IconTabFilter>
+                        <m:IconTabFilter text="{i18n>TAB_RESPONSIBLES}" icon="sap-icon://customer">
+                            <m:Panel headerText="" expandable="false">
+                                <m:content>
+                                    <ui:Table
+                                        id="responsibletable"
+                                        rows="{ResponsibleSet>/}"
+                                        enableColumnReordering="true"
+                                        selectionMode="None"
+                                        columnHeaderHeight="32"
+                                    >
+                                        <ui:columns>
+                                            <ui:Column width="120px" resizable="true" autoResizable="true">
+                                                <m:Label text="{i18n>COL_ROLE}" />
+                                                <ui:template>
+                                                    <m:Text text="{ResponsibleSet>ROL}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="120px" resizable="true" autoResizable="true">
+                                                <m:Label text="{i18n>COL_BP}" />
+                                                <ui:template>
+                                                    <m:Text text="{ResponsibleSet>EMPLEADO}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                            <ui:Column width="120px" resizable="true" autoResizable="true">
+                                                <m:Label text="{i18n>COL_NOMBRE}" />
+                                                <ui:template>
+                                                    <m:Text text="{ResponsibleSet>EMPLEADO_NOMBRE}" wrapping="false" />
+                                                </ui:template>
+                                            </ui:Column>
+                                        </ui:columns>
                                     </ui:Table>
                                 </m:content>
                             </m:Panel>

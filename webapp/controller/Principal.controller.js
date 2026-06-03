@@ -37,6 +37,27 @@ sap.ui.define([
 
             // Load Proj Managers and Partners
             await this.loadProjManagersAndPartner();
+
+            // Load profit centers
+            await this.loadProfitCenters();
+        },
+        async loadProfitCenters() {
+            var url = "/sap/opu/odata4/sap/zsrv_project_entry/srvd/sap/zsrv_project_entry/0001/Industria";
+            var response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+
+            var data = await response.json();
+
+            var oProfitCenterModel = new sap.ui.model.json.JSONModel({
+                ProfitCenterSet: data.value
+            });
+
+            let profitCenterComboBox = this.byId("profitCenterComboBox");
+            profitCenterComboBox.setModel(oProfitCenterModel);
         },
         async loadClientes() {
             var url = "/sap/opu/odata4/sap/zsrv_project_entry/srvd/sap/zsrv_project_entry/0001/Clientes";
@@ -94,6 +115,7 @@ sap.ui.define([
 
             var oValidatedComboBox = oEvent.getSource(),
                 sSelectedKey = oValidatedComboBox.getSelectedKey(),
+                oSelectedItem = oValidatedComboBox.getSelectedItem(),
                 sValue = oValidatedComboBox.getValue();
 
             if (!sSelectedKey && sValue) {
@@ -103,7 +125,16 @@ sap.ui.define([
                 oValidatedComboBox.setValueState(ValueState.None);
                 this.getView().getModel("ProjectSet").setProperty("/CustomerID", sSelectedKey);
                 this.getView().getModel("WBSSet").setProperty("/0/WorkPackageName", this.getView().getModel("ProjectSet").getProperty("/CustomerID") + " - " + this.getView().getModel("ProjectSet").getProperty("/ProjectName"));
+
+                if (oSelectedItem.getModel().getProperty(oSelectedItem.getBindingContext().getPath()).Currency !== this.getView().getModel("ProjectSet").getProperty("/Currency")) {
+                    oValidatedComboBox.setValueState(ValueState.Error);
+                    oValidatedComboBox.setValueStateText("La moneda del cliente no coincide con la del proyecto!");
+                } else {
+                    oValidatedComboBox.setValueState(ValueState.None);
+                }
             }
+
+
         },
 
         onProjManagerChange(oEvent) {
@@ -151,6 +182,21 @@ sap.ui.define([
             } else {
                 oValidatedComboBox.setValueState(ValueState.None);
                 this.getView().getModel("ProjectSet").setProperty("/ProjControllerExtId", sSelectedKey);
+            }
+        },
+        onProfitCenterChange(oEvent) {
+            var ValueState = coreLibrary.ValueState;
+
+            var oValidatedComboBox = oEvent.getSource(),
+                sSelectedKey = oValidatedComboBox.getSelectedKey(),
+                sValue = oValidatedComboBox.getValue();
+
+            if (!sSelectedKey && sValue) {
+                oValidatedComboBox.setValueState(ValueState.Error);
+                oValidatedComboBox.setValueStateText("Por favor indique un profit center válido!");
+            } else {
+                oValidatedComboBox.setValueState(ValueState.None);
+                this.getView().getModel("ProjectSet").setProperty("/ProfitCenter", sSelectedKey);
             }
         },
         formatCurrency: function (value, currency, locale) {

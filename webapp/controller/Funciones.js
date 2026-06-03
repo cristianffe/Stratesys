@@ -191,6 +191,7 @@ sap.ui.define([
                         YY1_Tipodeproyecto_Cpr: fnCell("F5") == 'X' ? '1' : fnCell("F6") == 'X' ? '2' : fnCell("F7") == 'X' ? '4' : fnCell("F8") == 'X' ? '3' : '',   // Tipo de Tecnología → ajustar
                         ProjControllerExt: fnCell("H11"),  // Gerente → ajustar
                         ProfitCenter: fnCell("P7"),
+                        ProfitCenterSelected: fnCell("P7"),
 
                         // Fechas
                         StartDate: fnCell("E10"),  // "01.04.2026"
@@ -270,8 +271,9 @@ sap.ui.define([
                     oView.setModel(new sap.ui.model.json.JSONModel(resourceDemand), "ResourceSet");
                     oView.setModel(new sap.ui.model.json.JSONModel(BillingPlan), "BillingSet");
 
+
                     // Validacion de combobox.
-                    this.fireChanges(oView, oProjectData.Customer, oProjectData.ProjManagerExt, oProjectData.ProjPartnerExt, oProjectData.ProjControllerExt);
+                    this.fireChanges(oView, oProjectData.Customer, oProjectData.ProjManagerExt, oProjectData.ProjPartnerExt, oProjectData.ProjControllerExt, oProjectData.ProfitCenter);
 
                     // Cambiar textos a code
                     await this.fixTextToCode(oView);
@@ -282,6 +284,10 @@ sap.ui.define([
 
                     var filter = "?$filter=NombreEmpresaFactura eq '" + oProjectData.OrgID + "' and ServiceOrgDefaultCostCenter eq '" + oProjectData.CostCenter + "'";
                     await this.obtenerDatosSociedad(filter);
+
+                    // Buscar Roles responsables
+                    let ResponsibleSet = await this.getRolesProyecto();
+                    oView.setModel(new sap.ui.model.json.JSONModel(ResponsibleSet.value), "ResponsibleSet");
 
                     this.closeDialog();
                     sap.m.MessageToast.show("Archivo cargado correctamente");
@@ -297,7 +303,12 @@ sap.ui.define([
 
             oReader.readAsArrayBuffer(oFile);
         },
-        fireChanges(oView, customer, manager, partner, controller) {
+
+        getResponsiblesFromProject() {
+
+        },
+
+        fireChanges(oView, customer, manager, partner, controller, profitCenter) {
 
             // Fire change para customer
             setTimeout(() => {
@@ -312,6 +323,9 @@ sap.ui.define([
 
                 let projectControllerComboBox = oView.byId("projectControllerComboBox");
                 projectControllerComboBox.fireChange({ value: partner });
+
+                let profitCenterComboBox = oView.byId("profitCenterComboBox");
+                profitCenterComboBox.fireChange({ value: profitCenter });
             }, 4000);
 
         },
@@ -545,6 +559,7 @@ sap.ui.define([
 
                                 // Enviar condiciones de precio
                                 await this.sendPriceConditions(header, projectId, billing, workPackage, resourceDemand, aMessages);
+                                await this.sendProjectRoles();
                             }
 
                             this.visualizarLog(aMessages, payloadHeader.ProjectID, rpta.mensaje);
@@ -560,6 +575,43 @@ sap.ui.define([
                 }.bind(this)
             });
         },
+
+        async sendProjectRoles() {
+            const roles = this.getView().getModel("ResponsibleSet").getData();
+            const projectId = this.getOwnerComponent().getModel("AppModel").getProperty("/ProjectID");
+
+            const promises = roles.map(role => {
+                const body = {
+                    "ProjectID": projectId,
+                    "ProjectRoleID": role.ROL,
+                    "BusinessPartnerID": role.EMPLEADO
+                };
+
+                return this._postODataV4("/sap/opu/odata4/sap/zsrv_project_entry/srvd/sap/zsrv_project_entry/0001/Project", {
+                    body: btoa(JSON.stringify(body)),
+                    urlApi: '/sap/opu/odata4/sap/api_cost_rate/srvd_a2x/sap/costrate/0001/ProjectRoleSet',
+                    urlMet: '/sap/opu/odata4/sap/api_cost_rate/srvd_a2x/sap/costrate/0001/$metadata',
+                    entidad: 'ProjectRoleSet'
+                }).then(rpta => {
+                    if (rpta.numericSeverity === 4) {
+                        aMessages.push(new sap.m.MessageItem({
+                            type: "Error",
+                            title: `Error al enviar rol del proyecto (${role.ROL})`,
+                            description: rpta.mensaje
+                        }));
+                    } else {
+                        aMessages.push(new sap.m.MessageItem({
+                            type: "Success",
+                            title: `Rol del proyecto (${role.ROL}) enviado correctamente`,
+                            description: `Rol del proyecto (${role.ROL}) para proyecto ${projectId} enviado correctamente`
+                        }));
+                    }
+                });
+            });
+
+            return Promise.all(promises);
+        },
+
         async sendPriceConditions(header, projectId, billing, workPackage, resourceDemand, aMessages) {
             await Promise.all([
                 this.sendCostePriceCondition(header, projectId, billing, workPackage, resourceDemand, aMessages),
@@ -937,6 +989,31 @@ sap.ui.define([
             this.getOwnerComponent().getModel("AppModel").setProperty("/IDSAPEmpresa", empresaFactura.IDSAP);
             this.getOwnerComponent().getModel("AppModel").setProperty("/DeliveryOrganization", empresaFactura.Organizaciondeentrega);
             this.getOwnerComponent().getModel("AppModel").setProperty("/WorkforcePersonUserID", empresaFactura.RecursoDemanda);
+
+        },
+
+        async getRolesProyecto() {
+            let idEmpresaFact = this.getOwnerComponent().getModel("AppModel").getProperty("/IDSAPEmpresa");
+            var response = await fetch(`/sap/opu/odata4/sap/zsrv_project_entry/srvd/sap/zsrv_project_entry/0001/RolesProyecto?$filter=EmpresaFacturadora eq '${idEmpresaFact}'`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+           let data = await response.json();
+           let nameEmpleados = this.byId("projectManagerComboBox").getModel().getData().ProjectManagerSet;
+           debugger
+           // Buscar por el nombre del empleado el ID de SAP y asignarlo a cada rol
+              data.value.forEach(function (oRole) { 
+                let empleado = nameEmpleados.find(e => e.Person === oRole.EMPLEADO);
+                if (empleado) {
+                    oRole.EMPLEADO_NOMBRE = empleado.PersonFullName;
+                }
+            });
+
+            debugger
+            return await data;
         },
 
         planFacturacion: function (billing, header, projectId) {
@@ -993,7 +1070,7 @@ sap.ui.define([
                     BillingPlanItemUsage: ""   // Uso
                 };
 
-                if(tipoProyecto == "3"){
+                if (tipoProyecto == "3") {
                     const msStartDate = Date.UTC(year, month - 1, 1); // Primer día del mes
                     objToPush.BillingPlanServiceStartDate = `/Date(${msStartDate})/`;
 
