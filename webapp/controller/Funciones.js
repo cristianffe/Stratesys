@@ -108,24 +108,29 @@ sap.ui.define([
                         || oWorkbook.Sheets[oWorkbook.SheetNames[7]];
 
                     // ── 2. Helper para leer celda de forma segura ─────────
+                    function formatDateCell(oCell) {
+                        var d = oCell.v instanceof Date ? oCell.v : new Date(oCell.v);
+                        var year = d.getFullYear();
+                        var month = String(d.getMonth() + 1).padStart(2, "0");
+                        var day = String(d.getDate()).padStart(2, "0");
+                        return year + "-" + month + "-" + day;
+                    }
+
                     var fnCell = function (sAddr) {
                         var oCell = oWS[sAddr];
                         if (!oCell) return "";
-                        // Si es fecha, formatear a YYYY-MM-DD
                         if (oCell.t === "d" || oCell.v instanceof Date) {
-                            var d = oCell.v instanceof Date ? oCell.v : new Date(oCell.v);
-                            return d.toISOString().split("T")[0];
+                            return formatDateCell(oCell);
                         }
                         return oCell.v !== undefined ? String(oCell.v).trim() : "";
                     };
 
+
                     var fnCellResource = function (sAddr) {
                         var oCell = oResource[sAddr];
                         if (!oCell) return "";
-                        // Si es fecha, formatear a YYYY-MM-DD
                         if (oCell.t === "d" || oCell.v instanceof Date) {
-                            var d = oCell.v instanceof Date ? oCell.v : new Date(oCell.v);
-                            return d.toISOString().split("T")[0];
+                            return formatDateCell(oCell);
                         }
                         return oCell.v !== undefined ? String(oCell.v).trim() : "";
                     };
@@ -139,10 +144,8 @@ sap.ui.define([
                     var fnCellBilling = function (sAddr) {
                         var oCell = oBilling[sAddr];
                         if (!oCell) return "";
-                        // Si es fecha, formatear a YYYY-MM-DD
                         if (oCell.t === "d" || oCell.v instanceof Date) {
-                            var d = oCell.v instanceof Date ? oCell.v : new Date(oCell.v);
-                            return d.toISOString().split("T")[0];
+                            return formatDateCell(oCell);
                         }
                         return oCell.v !== undefined ? String(oCell.v).trim() : "";
                     };
@@ -180,6 +183,7 @@ sap.ui.define([
                         // Datos generales
                         Currency: fnCell("B6").split("-")[0].trim(),   // "EUR - Euro"
                         ProjectName: fnCell("H7"),   // "(Cod. - CLiente ) IA Expansión - JP"
+                        ProjectDesc: "-" + fnCell("H7") || "",
                         YY1_Geografia_Cpr: fnCell("L11"),   // Industria label row
                         Customer: fnCell("H5"),   // Cliente → ajustar
                         // ProjectStage: ProjectStage,
@@ -243,18 +247,16 @@ sap.ui.define([
 
                     while (fnCellBilling("D" + IPlanBilling) != '') {
                         const str = fnCellBilling("E" + IPlanBilling);
-                        const [day, month, year] = str.split("/").map(Number);
-                        const date = new Date(year, month - 1, day);
 
                         BillingPlan.push({
                             SalesOrderItem: "10",
                             BillingPlanItem: IPlanBilling - 6,
                             SalesOrder: "",  // Empresa que factura → ajustar
-                            BillingPlanBillingDate: date,  // "01.04.2026"
+                            BillingPlanBillingDate: this.formatODataDateToShow(str),  // "01.04.2026"
                             BillingPlanRelatedBillgStatus: "A",  // No tengo este dato en el Excel de ejemplo
                             BillingPlanAmount: fnCellBilling("H" + IPlanBilling),
                             TransactionCurrency: fnCellBilling("B6"),
-                            BillingPlanItemDescription: fnCellBilling("F" + IPlanBilling)
+                            BillingPlanItemDescription: oProjectData.ProjectName + " - " + fnCellBilling("F" + IPlanBilling)
                         });
 
                         IPlanBilling++;
@@ -303,29 +305,72 @@ sap.ui.define([
 
             oReader.readAsArrayBuffer(oFile);
         },
-
-        getResponsiblesFromProject() {
-
+        formatODataDateToShow(str) {
+            var parts = str.split("/").map(String);
+            var day = parts[0];
+            var month = parts[1];
+            var year = parts[2];
+            var ms = new Date(Date.UTC(year, month - 1, day));
+            return ms;
+        },
+        formatODataDate(str) {
+            var parts = str.split(".").map(Number);
+            var day = parts[0];
+            var month = parts[1];
+            var year = parts[2];
+            // Date.UTC construye el timestamp en UTC puro → sin offset de timezone
+            var ms = Date.UTC(year, month - 1, day);
+            return "/Date(" + ms + ")/";
         },
 
         fireChanges(oView, customer, manager, partner, controller, profitCenter) {
 
             // Fire change para customer
             setTimeout(() => {
+                // Customer
                 let customerComboBox = oView.byId("customerComboBox");
-                customerComboBox.fireChange({ value: customer });
+                let customerFound = customerComboBox.getModel().getData().ClientsSet.find(c => c.CustomerName === customer)?.Customer;
 
+                if (!customerFound) {
+                    customerComboBox.fireChange({ value: customer });
+                } else {
+                    customerComboBox.fireChange({ value: customerFound });
+                }
+
+                // Project Manager
                 let projectManagerComboBox = oView.byId("projectManagerComboBox");
-                projectManagerComboBox.fireChange({ value: manager });
+                let projectManagerFound = projectManagerComboBox.getModel().getData().ProjectManagerSet.find(p => p.PersonFullName === manager)?.PersonExternalID;
+                if (!projectManagerFound) {
+                    projectManagerComboBox.fireChange({ value: manager });
+                } else {
+                    projectManagerComboBox.fireChange({ value: projectManagerFound });
+                }
 
+                // Project Partner
                 let projectPartnerComboBox = oView.byId("projectPartnerComboBox");
-                projectPartnerComboBox.fireChange({ value: partner });
+                let projectPartnerFound = projectPartnerComboBox.getModel().getData().ProjectPartnerSet.find(p => p.PersonFullName === partner)?.PersonExternalID;
+                if (!projectPartnerFound) {
+                    projectPartnerComboBox.fireChange({ value: partner });
+                } else {
+                    projectPartnerComboBox.fireChange({ value: projectPartnerFound });
+                }
 
                 let projectControllerComboBox = oView.byId("projectControllerComboBox");
-                projectControllerComboBox.fireChange({ value: partner });
+                let projectControllerFound = projectControllerComboBox.getModel().getData().ProjectControllerSet.find(p => p.PersonFullName === controller)?.PersonExternalID;
+                if (!projectControllerFound) {
+                    projectControllerComboBox.fireChange({ value: controller });
+                } else {
+                    projectControllerComboBox.fireChange({ value: projectControllerFound });
+                }
 
                 let profitCenterComboBox = oView.byId("profitCenterComboBox");
-                profitCenterComboBox.fireChange({ value: profitCenter });
+                let profitCenterFound = profitCenterComboBox.getModel().getData().ProfitCenterSet.find(p => p.DescriptivoIndustria === profitCenter)?.ProfitCenter;
+                if (!profitCenterFound) {
+                    profitCenterComboBox.fireChange({ value: profitCenter });
+                } else {
+                    profitCenterComboBox.setSelectedKey(profitCenterFound);
+                    profitCenterComboBox.fireChange({ value: profitCenterFound });
+                }
             }, 4000);
 
         },
@@ -525,7 +570,7 @@ sap.ui.define([
 
                             aMessages.push(new sap.m.MessageItem({
                                 type: "Success",
-                                title: "Proyecto creado correctamente",
+                                title: "Proyecto " + payloadHeader.ProjectID + " creado correctamente",
                                 description: "Proyecto " + payloadHeader.ProjectID + " creado correctamente"
                             }));
 
@@ -540,7 +585,6 @@ sap.ui.define([
                             };
 
                             rpta = await this._postODataV4(sEndpoint, oPayloadBase64);
-                            debugger;
 
                             if (rpta.numericSeverity === 4) {
                                 aMessages.push(new sap.m.MessageItem({
@@ -553,13 +597,13 @@ sap.ui.define([
 
                                 aMessages.push(new sap.m.MessageItem({
                                     type: "Success",
-                                    title: "Pedido creado correctamente",
+                                    title: "Pedido " + rpta.mensaje + " creado correctamente",
                                     description: "Pedido " + rpta.mensaje + " creado correctamente"
                                 }));
 
                                 // Enviar condiciones de precio
                                 await this.sendPriceConditions(header, projectId, billing, workPackage, resourceDemand, aMessages);
-                                await this.sendProjectRoles();
+                                await this.sendProjectRoles(aMessages);
                             }
 
                             this.visualizarLog(aMessages, payloadHeader.ProjectID, rpta.mensaje);
@@ -576,40 +620,40 @@ sap.ui.define([
             });
         },
 
-        async sendProjectRoles() {
+        async sendProjectRoles(aMessages) {
             const roles = this.getView().getModel("ResponsibleSet").getData();
             const projectId = this.getOwnerComponent().getModel("AppModel").getProperty("/ProjectID");
 
-            const promises = roles.map(role => {
+            for (const role of roles) {
                 const body = {
                     "ProjectID": projectId,
                     "ProjectRoleID": role.ROL,
                     "BusinessPartnerID": role.EMPLEADO
                 };
 
-                return this._postODataV4("/sap/opu/odata4/sap/zsrv_project_entry/srvd/sap/zsrv_project_entry/0001/Project", {
+                const rpta = await this._postODataV4("/sap/opu/odata4/sap/zsrv_project_entry/srvd/sap/zsrv_project_entry/0001/Project", {
                     body: btoa(JSON.stringify(body)),
-                    urlApi: '/sap/opu/odata4/sap/api_cost_rate/srvd_a2x/sap/costrate/0001/ProjectRoleSet',
-                    urlMet: '/sap/opu/odata4/sap/api_cost_rate/srvd_a2x/sap/costrate/0001/$metadata',
+                    urlApi: '/sap/opu/odata/CPD/SC_PROJ_ENGMT_CREATE_UPD_SRV/ProjectRoleSet',
+                    urlMet: '/sap/opu/odata/CPD/SC_PROJ_ENGMT_CREATE_UPD_SRV/$metadata',
                     entidad: 'ProjectRoleSet'
-                }).then(rpta => {
-                    if (rpta.numericSeverity === 4) {
-                        aMessages.push(new sap.m.MessageItem({
-                            type: "Error",
-                            title: `Error al enviar rol del proyecto (${role.ROL})`,
-                            description: rpta.mensaje
-                        }));
-                    } else {
-                        aMessages.push(new sap.m.MessageItem({
-                            type: "Success",
-                            title: `Rol del proyecto (${role.ROL}) enviado correctamente`,
-                            description: `Rol del proyecto (${role.ROL}) para proyecto ${projectId} enviado correctamente`
-                        }));
-                    }
                 });
-            });
 
-            return Promise.all(promises);
+                if (rpta.numericSeverity === 4) {
+                    aMessages.push(new sap.m.MessageItem({
+                        type: "Error",
+                        title: `Error al enviar rol del proyecto (${role.ROL})`,
+                        description: rpta.mensaje
+                    }));
+                } else {
+                    aMessages.push(new sap.m.MessageItem({
+                        type: "Success",
+                        title: `Rol del proyecto (${role.ROL}) enviado correctamente`,
+                        description: `Rol del proyecto (${role.ROL}) para proyecto ${projectId} enviado correctamente`
+                    }));
+                }
+
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
         },
 
         async sendPriceConditions(header, projectId, billing, workPackage, resourceDemand, aMessages) {
@@ -727,7 +771,7 @@ sap.ui.define([
                 ProjPartnerCompCode: oData.ProjPartnerCompCode || "",
                 ProjPartnerExtId: oData.ProjPartnerExtId || "",
                 ProjectCategory: oData.ProjectCategory || "",
-                ProjectDesc: oData.CustomerID + " - " + oData.ProjectName || "",
+                ProjectDesc: oData.ProjectDesc || "",
                 ProjectName: oData.CustomerID + " - " + oData.ProjectName || "",
                 ProjectStage: oData.ProjectStage || "",
                 RestrictTimePosting: oData.RestrictTimePosting || "N",
@@ -1001,18 +1045,17 @@ sap.ui.define([
                 }
             });
 
-           let data = await response.json();
-           let nameEmpleados = this.byId("projectManagerComboBox").getModel().getData().ProjectManagerSet;
-           debugger
-           // Buscar por el nombre del empleado el ID de SAP y asignarlo a cada rol
-              data.value.forEach(function (oRole) { 
+            let data = await response.json();
+            let nameEmpleados = this.byId("projectManagerComboBox").getModel().getData().ProjectManagerSet;
+
+            // Buscar por el nombre del empleado el ID de SAP y asignarlo a cada rol
+            data.value.forEach(function (oRole) {
                 let empleado = nameEmpleados.find(e => e.Person === oRole.EMPLEADO);
                 if (empleado) {
                     oRole.EMPLEADO_NOMBRE = empleado.PersonFullName;
                 }
             });
 
-            debugger
             return await data;
         },
 
@@ -1021,6 +1064,7 @@ sap.ui.define([
             let SalesOrderItemCategory = "";
             let Material = "";
             let amountToZero = false;
+            let noDescription = false;
 
             if (tipoProyecto == "4") {
                 SalesOrderItemCategory = "PS01";
@@ -1029,6 +1073,7 @@ sap.ui.define([
                 SalesOrderItemCategory = "PS02";
                 Material = "P002";
                 amountToZero = true;
+                noDescription = true;
             } else if (tipoProyecto == "3") {
                 SalesOrderItemCategory = "PS06";
                 Material = "P003";
@@ -1059,28 +1104,27 @@ sap.ui.define([
                 const [year, month, day] = oItemBilling.BillingPlanBillingDate.toISOString().substring(0, 10).split("-").map(Number);
 
                 // UTC midnight exacto — sin ajuste de timezone local
-                const ms = Date.UTC(year, month - 1, day);
+                const ms = new Date(Date.UTC(year, month - 1, day)).getTime();
                 const dateStr = `/Date(${ms})/`;
 
                 let objToPush = {
                     BillingPlanBillingDate: dateStr,  // Fecha facturación "2019-01-28T00:00:00"
-                    BillingPlanAmount: amountToZero ? 0 : oItemBilling.BillingPlanAmount,  // Monto plan facturación
+                    BillingPlanAmount: amountToZero ? "0" : oItemBilling.BillingPlanAmount,  // Monto plan facturación
                     TransactionCurrency: oItemBilling.TransactionCurrency.split("-")[0].trim(), // Moneda ej: "EUR"
-                    BillingPlanItemDescription: oItemBilling.BillingPlanItemDescription.substring(0, 40),  // Descripción
+                    BillingPlanItemDescription: noDescription ? "" : oItemBilling.BillingPlanItemDescription.substring(0, 254),  // Descripción
                     BillingPlanItemUsage: ""   // Uso
                 };
 
                 if (tipoProyecto == "3") {
-                    const msStartDate = Date.UTC(year, month - 1, 1); // Primer día del mes
+                    const msStartDate = new Date(Date.UTC(year, month - 1, 1)).getTime(); // Primer día del mes
                     objToPush.BillingPlanServiceStartDate = `/Date(${msStartDate})/`;
 
-                    const msEndDate = Date.UTC(year, month, 0); // Último día del mes
+                    const msEndDate = new Date(Date.UTC(year, month, 0)).getTime(); // Último día del mes
                     objToPush.BillingPlanServiceEndDate = `/Date(${msEndDate})/`;
                 }
 
                 oBodyBilling.to_CustProjSlsOrdItem[0].to_CustProjSOIBillgPlnItm.push(objToPush);
             }
-            debugger
             oBodyBilling = JSON.stringify(oBodyBilling, null, 2);
             return oBodyBilling;
         },

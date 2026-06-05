@@ -56,6 +56,8 @@ sap.ui.define([
                 ProfitCenterSet: data.value
             });
 
+            oProfitCenterModel.setSizeLimit(1000);
+
             let profitCenterComboBox = this.byId("profitCenterComboBox");
             profitCenterComboBox.setModel(oProfitCenterModel);
         },
@@ -73,6 +75,8 @@ sap.ui.define([
             var oClientsModel = new sap.ui.model.json.JSONModel({
                 ClientsSet: data.value
             });
+
+            oClientsModel.setSizeLimit(1000);
 
             let customerComboBox = this.byId("customerComboBox");
             customerComboBox.setModel(oClientsModel);
@@ -101,12 +105,15 @@ sap.ui.define([
             });
 
             let projectManagerComboBox = this.byId("projectManagerComboBox");
+            oDataModelManager.setSizeLimit(1000);
             projectManagerComboBox.setModel(oDataModelManager);
 
             let projectPartnerComboBox = this.byId("projectPartnerComboBox");
+            oDataModelPartner.setSizeLimit(1000);
             projectPartnerComboBox.setModel(oDataModelPartner);
 
             let projectControllerComboBox = this.byId("projectControllerComboBox");
+            oDataModelController.setSizeLimit(1000);
             projectControllerComboBox.setModel(oDataModelController);
         },
 
@@ -118,13 +125,14 @@ sap.ui.define([
                 oSelectedItem = oValidatedComboBox.getSelectedItem(),
                 sValue = oValidatedComboBox.getValue();
 
-            if (!sSelectedKey && sValue) {
+            if (!sSelectedKey) {
                 oValidatedComboBox.setValueState(ValueState.Error);
                 oValidatedComboBox.setValueStateText("Por favor indique un cliente válido!");
             } else {
                 oValidatedComboBox.setValueState(ValueState.None);
                 this.getView().getModel("ProjectSet").setProperty("/CustomerID", sSelectedKey);
                 this.getView().getModel("WBSSet").setProperty("/0/WorkPackageName", this.getView().getModel("ProjectSet").getProperty("/CustomerID") + " - " + this.getView().getModel("ProjectSet").getProperty("/ProjectName"));
+                this.getView().getModel("ProjectSet").setProperty("/ProjectDesc", this.getView().getModel("ProjectSet").getProperty("/CustomerID") + " - " + this.getView().getModel("ProjectSet").getProperty("/ProjectName"));
 
                 if (oSelectedItem.getModel().getProperty(oSelectedItem.getBindingContext().getPath()).Currency !== this.getView().getModel("ProjectSet").getProperty("/Currency")) {
                     oValidatedComboBox.setValueState(ValueState.Error);
@@ -199,16 +207,16 @@ sap.ui.define([
                 this.getView().getModel("ProjectSet").setProperty("/ProfitCenter", sSelectedKey);
             }
         },
-        formatCurrency: function (value, currency, locale) {
+        formatLabelWithCurrency: function (label, value, currency, locale) {
             if (value === null || value === undefined || isNaN(value)) {
                 return "";
             }
-            var sCurrency = currency || "COP";
-            var sLocale = locale || "es-CO";
-            return new Intl.NumberFormat(sLocale, {
+            var sCurrency = currency || "EUR";
+            var sLocale = locale || "es-ES";
+            return label + " " + new Intl.NumberFormat(sLocale, {
                 style: "currency",
                 currency: sCurrency,
-                minimumFractionDigits: 0,
+                minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             }).format(Number(value));
         },
