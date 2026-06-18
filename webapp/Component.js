@@ -22,6 +22,7 @@ sap.ui.define([
                 OrgId: "",
                 CostCenter: "",
                 Company:"",
+                CountryIso: "",
                 ClientsSet: []
             });
             

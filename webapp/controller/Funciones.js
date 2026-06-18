@@ -116,6 +116,22 @@ sap.ui.define([
                         return year + "-" + month + "-" + day;
                     }
 
+                    function ValidarFormatDate(dateStr) {
+                        if (!dateStr) return null;
+
+                        // Ya está en formato correcto DD.MM.YYYY → no hacer nada
+                        if (/^\d{2}\.\d{2}\.\d{4}$/.test(dateStr)) return dateStr;
+
+                        // Viene en formato YYYY-MM-DD → convertir
+                        if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+                            const [year, month, day] = dateStr.split('-');
+                            return `${day}/${month}/${year}`;
+                        }
+
+                        // Formato desconocido
+                        return dateStr;
+                    }
+
                     var fnCell = function (sAddr) {
                         var oCell = oWS[sAddr];
                         if (!oCell) return "";
@@ -245,8 +261,11 @@ sap.ui.define([
                     let IPlanBilling = 7;
                     let BillingPlan = [];
 
+                    debugger;
+
                     while (fnCellBilling("D" + IPlanBilling) != '') {
-                        const str = fnCellBilling("E" + IPlanBilling);
+                        let str = fnCellBilling("E" + IPlanBilling);
+                        str = ValidarFormatDate(str);
 
                         BillingPlan.push({
                             SalesOrderItem: "10",
@@ -285,6 +304,7 @@ sap.ui.define([
                     oView.byId("detailPage").bindElement("ProjectSet>/");
 
                     var filter = "?$filter=NombreEmpresaFactura eq '" + oProjectData.OrgID + "' and ServiceOrgDefaultCostCenter eq '" + oProjectData.CostCenter + "'";
+                    debugger;
                     await this.obtenerDatosSociedad(filter);
 
                     // Buscar Roles responsables
@@ -534,7 +554,9 @@ sap.ui.define([
             var billing = oView.getModel("BillingSet").getData();
 
             var projectId = this.getOwnerComponent().getModel("AppModel").getProperty("/ProjectID");
-            var payloadHeader = this.setHeaderProyecto(header, projectId);
+             debugger;
+            var industrySector = await this.obtenerIndustriaCliente();
+            var payloadHeader = this.setHeaderProyecto(header, projectId, industrySector);
             var payloadWorkPackage = this.setWorkPackageProyecto(workPackage, projectId);
             var payloadResourceDemand = this.setResourceDemandProyecto(resourceDemand, projectId);
 
@@ -700,7 +722,9 @@ sap.ui.define([
             });
         },
         async sendVentaPriceCondition(header, projectId, billing, workPackage, resourceDemand, aMessages) {
-            const dateEndDate = `/Date(${new Date(workPackage[0].EndDate).getTime()})/`;
+            //const dateEndDate = `/Date(${new Date(workPackage[0].EndDate).getTime()})/`;
+            debugger;
+            const dateEndDate = '/Date(253402214400000)/'; //31.12.9999
             const dateStartDate = `/Date(${new Date(workPackage[0].StartDate).getTime()})/`;
             const body = {
                 "ConditionTable": "4AK",
@@ -752,7 +776,7 @@ sap.ui.define([
             return true;
         },
 
-        setHeaderProyecto: function (oData, projectId) {
+        setHeaderProyecto: function (oData, projectId, industrySector) {
             var oPayload = {
                 ProjectID: projectId,
                 Confidential: oData.Confidential || "N",
@@ -779,7 +803,8 @@ sap.ui.define([
                 UseProjectBilling: oData.UseProjectBilling || "",
                 YY1_ACTIVE_Cpr: oData.YY1_ACTIVE_Cpr || "",
                 YY1_Fechadeventa_Cpr: oData.YY1_Fechadeventa_Cpr || null,
-                YY1_Geografia_Cpr: oData.YY1_Geografia_Cpr || "",
+                //YY1_Geografia_Cpr: oData.YY1_Geografia_Cpr || "",
+                YY1_Geografia_Cpr: industrySector || "",
                 YY1_Producto_Cpr: oData.YY1_Producto_Cpr || "",
                 YY1_Tipodeproyecto_Cpr: oData.YY1_Tipodeproyecto_Cpr || ""
             };
@@ -787,6 +812,28 @@ sap.ui.define([
             return oPayload;
 
         },
+
+        async obtenerIndustriaCliente() {
+               debugger;
+            let Customer = this.byId("customerComboBox").getSelectedItem().getBindingContext().getObject().Customer;
+
+            // URL base de tu servicio (ajústala a tu necesidad, ej: "/sap/opu/odata/sap/ZSERVICIO_SRV/CustomerSet")
+            var sBaseUrl = "/sap/opu/odata4/sap/zsrv_project_entry/srvd/sap/zsrv_project_entry/0001/IndustriaClt";
+            var sODataFilter = "BusinessPartner eq '" + Customer + "'";
+                // Agregamos el ? $filter = de manera limpia y codificamos SOLO las funciones contains
+                sBaseUrl += "?$filter=" + encodeURIComponent(sODataFilter);
+
+                try {
+                    // 5. Llamamos a tu función actual para obtener los datos del backend
+                    var clienteIndustria = await this.obtenerOdata(sBaseUrl);
+                    return clienteIndustria?.[0]?.IndustrySector || "";
+                } catch (error) {
+
+                }
+            
+
+        },
+
 
         setWorkPackageProyecto: function (aWBSData, projectId) {
 
@@ -827,7 +874,7 @@ sap.ui.define([
                     //DeliveryOrganization: oItem.DeliveryOrganization || "",
                     DeliveryOrganization: this.getOwnerComponent().getModel("AppModel").getProperty("/DeliveryOrganization"),
                     //  EngagementProject: sProjectID,
-                    Country2DigitISOCode: "ES",
+                    Country2DigitISOCode: this.getOwnerComponent().getModel("AppModel").getProperty("/CountryIso"),
                     //EngagementProjectResource: oItem.EngagementProjectResource || "",
                     EngagementProjectResource: "T013", // ok
                     EngagementProjectResourceType: "0ACT", // ok
@@ -955,6 +1002,7 @@ sap.ui.define([
         },
 
         obtenerProjectID: async function () {
+            debugger;
             var url = "/sap/opu/odata4/sap/zsrv_project_entry/srvd/sap/zsrv_project_entry/0001/NewProject";
 
             // Para que sea "síncrono", lo metemos en una función async con await
@@ -1011,10 +1059,12 @@ sap.ui.define([
                 var empresa = data.value.find(i => i.campo === "EMPRESA")?.valores;
                 var orgId = data.value.find(i => i.campo === "SOCIEDAD")?.valores;
                 var ceco = data.value.find(i => i.campo === "CECO")?.valores;
+                var countryIso = data.value.find(i => i.campo === "COUNTRY_ISO")?.valores;
 
                 this.getOwnerComponent().getModel("AppModel").setProperty("/OrgId", orgId);
                 this.getOwnerComponent().getModel("AppModel").setProperty("/CostCenter", ceco);
                 this.getOwnerComponent().getModel("AppModel").setProperty("/Company", empresa);
+                this.getOwnerComponent().getModel("AppModel").setProperty("/CountryIso", countryIso);
                 //console.log("Resultado del GET:", data[0].value);
             } catch (error) {
                 // console.error("Fallo en la petición:", error);
@@ -1065,6 +1115,7 @@ sap.ui.define([
             let Material = "";
             let amountToZero = false;
             let noDescription = false;
+            let BillingPlanItemUsage = "";
 
             if (tipoProyecto == "4") {
                 SalesOrderItemCategory = "PS01";
@@ -1074,6 +1125,7 @@ sap.ui.define([
                 Material = "P002";
                 amountToZero = true;
                 noDescription = true;
+                BillingPlanItemUsage = "1";
             } else if (tipoProyecto == "3") {
                 SalesOrderItemCategory = "PS06";
                 Material = "P003";
@@ -1100,6 +1152,7 @@ sap.ui.define([
 
             for (var i = 0; i < billing.length; i++) {
                 var oItemBilling = billing[i];
+                debugger;
 
                 const [year, month, day] = oItemBilling.BillingPlanBillingDate.toISOString().substring(0, 10).split("-").map(Number);
 
@@ -1112,7 +1165,8 @@ sap.ui.define([
                     BillingPlanAmount: amountToZero ? "0" : oItemBilling.BillingPlanAmount,  // Monto plan facturación
                     TransactionCurrency: oItemBilling.TransactionCurrency.split("-")[0].trim(), // Moneda ej: "EUR"
                     BillingPlanItemDescription: noDescription ? "" : oItemBilling.BillingPlanItemDescription.substring(0, 254),  // Descripción
-                    BillingPlanItemUsage: ""   // Uso
+                    // BillingPlanItemUsage: ""   // Uso
+                    BillingPlanItemUsage: BillingPlanItemUsage
                 };
 
                 if (tipoProyecto == "3") {
@@ -1317,5 +1371,7 @@ sap.ui.define([
                 }
             }.bind(this), 1000);
         }
+
+
     });
 });
