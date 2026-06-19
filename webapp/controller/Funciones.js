@@ -1123,7 +1123,7 @@ sap.ui.define([
             } else if (tipoProyecto == "1" || tipoProyecto == "2") {
                 SalesOrderItemCategory = "PS02";
                 Material = "P002";
-                amountToZero = true;
+                amountToZero = false;
                 noDescription = true;
                 BillingPlanItemUsage = "1";
             } else if (tipoProyecto == "3") {
