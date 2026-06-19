@@ -179,6 +179,7 @@
                         />
                         <m:Text text="{ProjectSet>CostCenter}" />
                     </m:HBox>
+                    <!--
                     <m:HBox
                         alignItems="Center"
                         class="sapUiTinyMarginBottom"
@@ -201,6 +202,20 @@
                             />
                         </m:ComboBox>
                     </m:HBox>
+                    -->
+
+                    <m:HBox
+                        alignItems="Center"
+                        class="sapUiTinyMarginBottom"
+                    >
+                        <m:Label
+                            text="{i18n>LBL_PROFIT_CENTER}"
+                            width="180px"
+                            design="Bold"
+                        />
+                        <m:Text text="{ProjectSet>ProfitCenter}" />
+                    </m:HBox>
+
                     <!-- <m:HBox
                         alignItems="Center"
                         class="sapUiTinyMarginBottom"

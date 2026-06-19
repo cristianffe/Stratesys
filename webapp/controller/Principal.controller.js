@@ -117,7 +117,8 @@ sap.ui.define([
             projectControllerComboBox.setModel(oDataModelController);
         },
 
-        onCustomerChange: function (oEvent) {
+        onCustomerChange: async function (oEvent) {
+            debugger;
             var ValueState = coreLibrary.ValueState;
 
             var oValidatedComboBox = oEvent.getSource(),
@@ -141,6 +142,11 @@ sap.ui.define([
                     oValidatedComboBox.setValueState(ValueState.None);
                 }
             }
+             var cust = this.byId("customerComboBox").getSelectedItem().getBindingContext().getObject().Customer;
+            var industrySector =  await this.obtenerIndustriaCliente(cust);
+            this.getView().getModel("ProjectSet").setProperty("/ProfitCenter", industrySector);
+
+
 
 
         },

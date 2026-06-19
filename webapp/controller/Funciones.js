@@ -555,8 +555,8 @@ sap.ui.define([
 
             var projectId = this.getOwnerComponent().getModel("AppModel").getProperty("/ProjectID");
              debugger;
-            var industrySector = await this.obtenerIndustriaCliente();
-            var payloadHeader = this.setHeaderProyecto(header, projectId, industrySector);
+           // var industrySector = await this.obtenerIndustriaCliente();
+            var payloadHeader = this.setHeaderProyecto(header, projectId);
             var payloadWorkPackage = this.setWorkPackageProyecto(workPackage, projectId);
             var payloadResourceDemand = this.setResourceDemandProyecto(resourceDemand, projectId);
 
@@ -776,7 +776,7 @@ sap.ui.define([
             return true;
         },
 
-        setHeaderProyecto: function (oData, projectId, industrySector) {
+        setHeaderProyecto: function (oData, projectId) {
             var oPayload = {
                 ProjectID: projectId,
                 Confidential: oData.Confidential || "N",
@@ -785,7 +785,8 @@ sap.ui.define([
                 Customer: this.byId("customerComboBox").getSelectedItem().getBindingContext().getObject().Customer,
                 EndDate: oData.EndDate ? oData.EndDate + "T00:00:00" : null,
                 OrgID: this.getOwnerComponent().getModel("AppModel").getProperty("/OrgId"),
-                ProfitCenter: oData.ProfitCenter.split("(")[0].trim(),
+               // ProfitCenter: oData.ProfitCenter.split("(")[0].trim(),
+               ProfitCenter: this.getView().getModel("ProjectSet").getProperty("/ProfitCenter"),
                 ProjAccountantCompCode: oData.ProjAccountantCompCode || "",
                 ProjAccountantExtId: oData.ProjAccountantExtId || "",
                 ProjControllerCompCode: oData.ProjControllerCompCode || "",
@@ -803,8 +804,7 @@ sap.ui.define([
                 UseProjectBilling: oData.UseProjectBilling || "",
                 YY1_ACTIVE_Cpr: oData.YY1_ACTIVE_Cpr || "",
                 YY1_Fechadeventa_Cpr: oData.YY1_Fechadeventa_Cpr || null,
-                //YY1_Geografia_Cpr: oData.YY1_Geografia_Cpr || "",
-                YY1_Geografia_Cpr: industrySector || "",
+                YY1_Geografia_Cpr: oData.YY1_Geografia_Cpr || "",
                 YY1_Producto_Cpr: oData.YY1_Producto_Cpr || "",
                 YY1_Tipodeproyecto_Cpr: oData.YY1_Tipodeproyecto_Cpr || ""
             };
@@ -813,9 +813,9 @@ sap.ui.define([
 
         },
 
-        async obtenerIndustriaCliente() {
+        async obtenerIndustriaCliente(Customer) {
                debugger;
-            let Customer = this.byId("customerComboBox").getSelectedItem().getBindingContext().getObject().Customer;
+           // let Customer = this.byId("customerComboBox").getSelectedItem().getBindingContext().getObject().Customer;
 
             // URL base de tu servicio (ajústala a tu necesidad, ej: "/sap/opu/odata/sap/ZSERVICIO_SRV/CustomerSet")
             var sBaseUrl = "/sap/opu/odata4/sap/zsrv_project_entry/srvd/sap/zsrv_project_entry/0001/IndustriaClt";
