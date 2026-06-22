@@ -120,7 +120,9 @@ sap.ui.define([
                         if (!dateStr) return null;
 
                         // Ya está en formato correcto DD.MM.YYYY → no hacer nada
-                        if (/^\d{2}\.\d{2}\.\d{4}$/.test(dateStr)) return dateStr;
+                        if (/^\d{2}\.\d{2}\.\d{4}$/.test(dateStr)) 
+                            return dateStr.replace(/\./g, "/");
+                           // return dateStr;
 
                         // Viene en formato YYYY-MM-DD → convertir
                         if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
@@ -303,7 +305,7 @@ sap.ui.define([
                     oView.byId("masterPage").bindElement("ProjectSet>/");
                     oView.byId("detailPage").bindElement("ProjectSet>/");
 
-                    var filter = "?$filter=NombreEmpresaFactura eq '" + oProjectData.OrgID + "' and ServiceOrgDefaultCostCenter eq '" + oProjectData.CostCenter + "'";
+                    var filter = "?$filter=NombreEmpresaFactura eq '" + encodeURIComponent(oProjectData.OrgID) + "' and ServiceOrgDefaultCostCenter eq '" + encodeURIComponent(oProjectData.CostCenter) + "'";
                     debugger;
                     await this.obtenerDatosSociedad(filter);
 
@@ -382,7 +384,7 @@ sap.ui.define([
                 } else {
                     projectControllerComboBox.fireChange({ value: projectControllerFound });
                 }
-
+/*
                 let profitCenterComboBox = oView.byId("profitCenterComboBox");
                 let profitCenterFound = profitCenterComboBox.getModel().getData().ProfitCenterSet.find(p => p.DescriptivoIndustria === profitCenter)?.ProfitCenter;
                 if (!profitCenterFound) {
@@ -391,6 +393,7 @@ sap.ui.define([
                     profitCenterComboBox.setSelectedKey(profitCenterFound);
                     profitCenterComboBox.fireChange({ value: profitCenterFound });
                 }
+                    */
             }, 4000);
 
         },
@@ -981,7 +984,7 @@ sap.ui.define([
                                 resolve({
                                     mensaje: sMensaje,
                                     numericSeverity: nSeverity,
-                                    id: oResponse?.id   // ✅ retornar el id del proyecto creado
+                                    id: oResponse?.id || oResponse?.projectId // ✅ retornar el id del proyecto creado
                                 });
                             },
                             error: function (oError) {
