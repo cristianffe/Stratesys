@@ -53,6 +53,7 @@ sap.ui.define([
         onProcesarExcel: async function (oEvent) {
 
             var oFile = this._oExcelFile;
+            this.getOwnerComponent().getModel("AppModel").setProperty("/enableBtnCreate", true);
 
             if (!oFile) {
                 sap.m.MessageBox.warning("Seleccione un archivo primero");
@@ -75,7 +76,7 @@ sap.ui.define([
             this.getOwnerComponent().getModel("AppModel").setProperty("/Company", "");
 
             sap.ui.core.BusyIndicator.show(0);
-             this.obtenerProjectID();
+           //  this.obtenerProjectID();
          //   await this.obtenerProjectID();
             // this.getView().getModel("AppModel").refresh(true);
 
@@ -559,6 +560,10 @@ sap.ui.define([
 
             var projectId = this.getOwnerComponent().getModel("AppModel").getProperty("/ProjectID");
              debugger;
+             if(!projectId || projectId.trim() === "") {
+                  MessageBox.warning("Por favor espera un momento mientras se obtiene el Project ID");
+                  return;
+             }
            // var industrySector = await this.obtenerIndustriaCliente();
             var payloadHeader = this.setHeaderProyecto(header, projectId);
             var payloadWorkPackage = this.setWorkPackageProyecto(workPackage, projectId);
@@ -593,7 +598,9 @@ sap.ui.define([
                         if (rpta.numericSeverity === 4) {
                             MessageBox.error(rpta.mensaje);
                         } else {
-
+                            this.getOwnerComponent().getModel("AppModel").setProperty("/enableBtnCreate", false);
+                            this.getOwnerComponent().getModel("AppModel").setProperty("/enableBtnPlantilla", false)
+                            
                             aMessages.push(new sap.m.MessageItem({
                                 type: "Success",
                                 title: "Proyecto " + payloadHeader.ProjectID + " creado correctamente",
@@ -631,6 +638,8 @@ sap.ui.define([
                                 await this.sendPriceConditions(header, projectId, billing, workPackage, resourceDemand, aMessages);
                                 await this.sendProjectRoles(aMessages);
                             }
+
+                            this.obtenerProjectID();
 
                             this.visualizarLog(aMessages, payloadHeader.ProjectID, rpta.mensaje);
                         }
@@ -1026,6 +1035,9 @@ sap.ui.define([
             projectId = (BigInt(projectId.replace(/[^0-9]/g, "")) + 1n).toString();
 
             this.getOwnerComponent().getModel("AppModel").setProperty("/ProjectID", projectId);
+            this.getOwnerComponent().getModel("AppModel").setProperty("/enableBtnPlantilla", true);
+            
+            debugger;
         },
 
         obtenerOdata: async function (url) {
@@ -1156,8 +1168,7 @@ sap.ui.define([
 
             for (var i = 0; i < billing.length; i++) {
                 var oItemBilling = billing[i];
-                debugger;
-
+                
                 const [year, month, day] = oItemBilling.BillingPlanBillingDate.toISOString().substring(0, 10).split("-").map(Number);
 
                 // UTC midnight exacto — sin ajuste de timezone local

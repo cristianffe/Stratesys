@@ -23,6 +23,8 @@ sap.ui.define([
                 CostCenter: "",
                 Company:"",
                 CountryIso: "",
+                enableBtnCreate: false,
+                enableBtnPlantilla: false,
                 ClientsSet: []
             });
             

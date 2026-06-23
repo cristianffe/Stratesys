@@ -8,6 +8,7 @@ sap.ui.define([
         _searchTimeout: null,
         async onInit() {
 
+            this.obtenerProjectID();
             // Configurar tamaño inicial del splitter
             var oSplitter = this.byId("mainSplitter");
             var oMasterPage = this.byId("masterPage");

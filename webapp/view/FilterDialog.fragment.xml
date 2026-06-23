@@ -25,6 +25,7 @@
         <beginButton>
             <Button
                 text="{i18n>BTN_PROCESS_FILE}"
+                enabled="{AppModel>/enableBtnPlantilla}"
                 press="onProcesarExcel"
             />
         </beginButton>

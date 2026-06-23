@@ -390,12 +390,14 @@
                         <m:Button
                             text="{i18n>BTN_UPLOAD_FILE}"
                             type="Emphasized"
+                            enabled="{AppModel>/enableBtnPlantilla}"
                             icon="sap-icon://upload"
                             press=".onUploadFile"
                         />
                         <m:Button
                             text="{i18n>BTN_CREATE}"
                             type="Emphasized"
+                            enabled="{AppModel>/enableBtnCreate}"
                             icon="sap-icon://create-form"
                             press=".onCreate"
                         />
