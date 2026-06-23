@@ -75,7 +75,8 @@ sap.ui.define([
             this.getOwnerComponent().getModel("AppModel").setProperty("/Company", "");
 
             sap.ui.core.BusyIndicator.show(0);
-            await this.obtenerProjectID();
+             this.obtenerProjectID();
+         //   await this.obtenerProjectID();
             // this.getView().getModel("AppModel").refresh(true);
 
             var oReader = new FileReader();
