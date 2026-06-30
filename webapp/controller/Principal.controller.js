@@ -127,28 +127,50 @@ sap.ui.define([
                 oSelectedItem = oValidatedComboBox.getSelectedItem(),
                 sValue = oValidatedComboBox.getValue();
 
-            if (!sSelectedKey) {
+            // Buscar si el valor actual coincide con algún item del ComboBox (por key o por texto)
+            var aItems = oValidatedComboBox.getItems();
+            var oMatchedItem = oSelectedItem;
+
+            if (!oMatchedItem && sValue) {
+                oMatchedItem = aItems.find(function (oItem) {
+                    return oItem.getKey() === sValue || oItem.getText() === sValue;
+                });
+            }
+
+            if (!sSelectedKey && !oMatchedItem) {
+                // Realmente no hay ningún valor válido seleccionado
                 oValidatedComboBox.setValueState(ValueState.Error);
                 oValidatedComboBox.setValueStateText("Por favor indique un cliente válido!");
             } else {
-                oValidatedComboBox.setValueState(ValueState.None);
-                this.getView().getModel("ProjectSet").setProperty("/CustomerID", sSelectedKey);
-                this.getView().getModel("WBSSet").setProperty("/0/WorkPackageName", this.getView().getModel("ProjectSet").getProperty("/CustomerID") + " - " + this.getView().getModel("ProjectSet").getProperty("/ProjectName"));
-                this.getView().getModel("ProjectSet").setProperty("/ProjectDesc", this.getView().getModel("ProjectSet").getProperty("/CustomerID") + " - " + this.getView().getModel("ProjectSet").getProperty("/ProjectName"));
+                // Si encontramos el item por búsqueda manual, igual lo usamos como seleccionado
+                if (!oSelectedItem && oMatchedItem) {
+                    oSelectedItem = oMatchedItem;
+                    sSelectedKey = oMatchedItem.getKey();
+                    oValidatedComboBox.setSelectedKey(sSelectedKey); // sincroniza el control
+                }
 
-                if (oSelectedItem.getModel().getProperty(oSelectedItem.getBindingContext().getPath()).Currency !== this.getView().getModel("ProjectSet").getProperty("/Currency")) {
+                oValidatedComboBox.setValueState(ValueState.None);
+
+                this.getView().getModel("ProjectSet").setProperty("/CustomerID", sSelectedKey);
+                this.getView().getModel("WBSSet").setProperty("/0/WorkPackageName",
+                    this.getView().getModel("ProjectSet").getProperty("/CustomerID") + " - " +
+                    this.getView().getModel("ProjectSet").getProperty("/ProjectName"));
+                this.getView().getModel("ProjectSet").setProperty("/ProjectDesc",
+                    this.getView().getModel("ProjectSet").getProperty("/CustomerID") + " - " +
+                    this.getView().getModel("ProjectSet").getProperty("/ProjectName"));
+
+                var sItemCurrency = oSelectedItem.getModel().getProperty(oSelectedItem.getBindingContext().getPath()).Currency;
+                if (sItemCurrency !== this.getView().getModel("ProjectSet").getProperty("/Currency")) {
                     oValidatedComboBox.setValueState(ValueState.Error);
                     oValidatedComboBox.setValueStateText("La moneda del cliente no coincide con la del proyecto!");
                 } else {
                     oValidatedComboBox.setValueState(ValueState.None);
                 }
             }
-             var cust = this.byId("customerComboBox").getSelectedItem().getBindingContext().getObject().Customer;
-            var industrySector =  await this.obtenerIndustriaCliente(cust);
+
+            var cust = this.byId("customerComboBox").getSelectedItem().getBindingContext().getObject().Customer;
+            var industrySector = await this.obtenerIndustriaCliente(cust);
             this.getView().getModel("ProjectSet").setProperty("/ProfitCenter", industrySector);
-
-
-
 
         },
 
@@ -158,6 +180,19 @@ sap.ui.define([
             var oValidatedComboBox = oEvent.getSource(),
                 sSelectedKey = oValidatedComboBox.getSelectedKey(),
                 sValue = oValidatedComboBox.getValue();
+
+            // Si no hay key pero hay un valor cargado, intentar matchear manualmente contra los items
+            if (!sSelectedKey && sValue) {
+                var aItems = oValidatedComboBox.getItems();
+                var oMatchedItem = aItems.find(function (oItem) {
+                    return oItem.getKey() === sValue || oItem.getText() === sValue;
+                });
+
+                if (oMatchedItem) {
+                    sSelectedKey = oMatchedItem.getKey();
+                    oValidatedComboBox.setSelectedKey(sSelectedKey); // sincroniza el control
+                }
+            }
 
             if (!sSelectedKey && sValue) {
                 oValidatedComboBox.setValueState(ValueState.Error);
@@ -175,6 +210,19 @@ sap.ui.define([
                 sSelectedKey = oValidatedComboBox.getSelectedKey(),
                 sValue = oValidatedComboBox.getValue();
 
+            // Si no hay key pero hay un valor cargado, intentar matchear manualmente contra los items
+            if (!sSelectedKey && sValue) {
+                var aItems = oValidatedComboBox.getItems();
+                var oMatchedItem = aItems.find(function (oItem) {
+                    return oItem.getKey() === sValue || oItem.getText() === sValue;
+                });
+
+                if (oMatchedItem) {
+                    sSelectedKey = oMatchedItem.getKey();
+                    oValidatedComboBox.setSelectedKey(sSelectedKey); // sincroniza el control
+                }
+            }
+
             if (!sSelectedKey && sValue) {
                 oValidatedComboBox.setValueState(ValueState.Error);
                 oValidatedComboBox.setValueStateText("Por favor indique un proj partner válido!");
@@ -190,6 +238,19 @@ sap.ui.define([
             var oValidatedComboBox = oEvent.getSource(),
                 sSelectedKey = oValidatedComboBox.getSelectedKey(),
                 sValue = oValidatedComboBox.getValue();
+
+            // Si no hay key pero hay un valor cargado, intentar matchear manualmente contra los items
+            if (!sSelectedKey && sValue) {
+                var aItems = oValidatedComboBox.getItems();
+                var oMatchedItem = aItems.find(function (oItem) {
+                    return oItem.getKey() === sValue || oItem.getText() === sValue;
+                });
+
+                if (oMatchedItem) {
+                    sSelectedKey = oMatchedItem.getKey();
+                    oValidatedComboBox.setSelectedKey(sSelectedKey); // sincroniza el control
+                }
+            }
 
             if (!sSelectedKey && sValue) {
                 oValidatedComboBox.setValueState(ValueState.Error);
